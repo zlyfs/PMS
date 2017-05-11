@@ -42,7 +42,7 @@ namespace PersonImporting
             ShowMsg("--------------------------------------------------------------------------");
             while (true)
             {
-                ShowMsg("请选择操作类型，a：导入通讯录，b：导出通讯录 c:退出" );
+                ShowMsg("请选择操作类型，a：导入通讯录，b：导出通讯录 c:批量导入通讯录" );
                 option = Console.ReadLine();
                 if (!CheckedOption(option))
                 {
@@ -60,14 +60,23 @@ namespace PersonImporting
                 case "a":
                     ShowMsg("--------------------------------------------------------------------------");
                     ShowMsg("                              导入通讯录");
-                    Import();
+                    while (true)
+                    {
+                        Import();
+                    }
                     break;
                 case "b":
                     ShowMsg("--------------------------------------------------------------------------");
                     ShowMsg("                              导出通讯录");
-                    Export();
+                    while(true)
+                    {
+                        Export();
+                    }
                     break;
                 case "c":
+                    ShowMsg("--------------------------------------------------------------------------");
+                    ShowMsg("                              批量导入通讯录");
+                    DImport();
                     break;
                 default:
                     break;
@@ -113,6 +122,100 @@ namespace PersonImporting
             ShowMsg("点击任意键退出");
             Console.ReadKey();
         }
+
+        /// <summary>
+        /// 批量导入
+        /// </summary>
+        private static void DImport()
+        {
+            //文件名
+            string fileName;
+            //绝对路径
+            ShowMsg("请输入文件夹的绝对路径：");
+            string folderFullName = Console.ReadLine();
+            DirectoryInfo TheFolder = new DirectoryInfo(folderFullName);
+            foreach (FileInfo NextFile in TheFolder.GetFiles())
+            {
+                fullPath = NextFile.FullName;
+                fileName = Path.GetFileName(fullPath);
+                //2 文件格式验证
+                if (Utils.ImportExportUtils.FileFormateValidation(fullPath))
+                {
+                    groupBLL = new BLL.P_GroupBLL();
+                    departmentBLL = new BLL.P_DepartmentBLL();
+                    personBLL = new BLL.P_PersonBLL();
+                    r_personBLL = new PMS.BLL.P_PersonInfoBLL();
+                    var list = LoadFile(fullPath, fileName);
+                    if (list.Count < 1)
+                    {
+                        ShowMsg("文件内容格式错误，请检查联系人信息是否完整，电话位数是否正确，并按说明要求导入");
+                    }
+                    else
+                    {
+                        DBOperate(list);
+                        ShowMsg("导入联系人成功！共录入：" + list.Count() + " 人");
+                    }
+                }
+                else
+                {
+                    ShowMsg("文件名格式错误，请按说明要求导入");
+
+                }
+            }
+                       
+            ShowMsg("点击任意键退出");
+            Console.ReadLine();
+        }
+
+        private static void ImportNoDpt()
+        {
+            //文件名
+            string fileName;
+            //绝对路径
+            while (true)
+            {
+                ShowMsg("请输入文件的绝对路径：");
+                fullPath = Console.ReadLine();
+                fileName = Path.GetFileName(fullPath);
+                if (!CheckedFileExist(fullPath))
+                {
+                    ShowMsg("不存在指定文件，请重新输入");
+                    continue;
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+
+            //2 文件格式验证
+            if (Utils.ImportExportUtils.FileFormateValidation(fullPath))
+            {
+                groupBLL = new BLL.P_GroupBLL();
+                departmentBLL = new BLL.P_DepartmentBLL();
+                personBLL = new BLL.P_PersonBLL();
+                r_personBLL = new PMS.BLL.P_PersonInfoBLL();
+                var list = LoadFile(fullPath, fileName);
+                if (list.Count < 1)
+                {
+                    ShowMsg("文件内容格式错误，请检查联系人信息是否完整，电话位数是否正确，并按说明要求导入");
+                }
+                else
+                {
+                    DBOperate(list);
+                    ShowMsg("导入联系人成功！共录入：" + list.Count() + " 人");
+                }
+            }
+            else
+            {
+                ShowMsg("文件名格式错误，请按说明要求导入");
+
+            }
+            ShowMsg("点击任意键退出");
+            Console.ReadLine();
+        }
+
         private static void Import()
         {
             //文件名
@@ -176,7 +279,7 @@ namespace PersonImporting
 
             }
                 ShowMsg("点击任意键退出");
-                Console.ReadKey();
+                Console.ReadLine();
         }
         private static bool CheckedOption(string option)
         {
@@ -252,7 +355,7 @@ namespace PersonImporting
             //17年2月20日新加
             if (!departmentBLL.CheckDepartmentRequired())
             {
-                ShowMsg("数据库中没有顶级父节点，请先在数据库的部门表中创建顶级父节点，设置其DID为0，设置其ＰＤＩＤ为－１");
+                ShowMsg("数据库中没有“顶级父节点”，请先在数据库的部门表中创建顶级父节点，设置其DID为0，设置其ＰＤＩＤ为－１");
                 return;
             }
             //2 写入数据库
@@ -264,7 +367,6 @@ namespace PersonImporting
             var group_name= temp.GroupName;
             var group_sort = temp.GroupSort;
             var enum_group= groupBLL.CheckGroupExist(group_name, group_sort);
-
             //2.2 判断或创建部门
             //遍历创建部门
             //2.2.1从集合中查找不重复的部门
@@ -287,6 +389,50 @@ namespace PersonImporting
                 int[] dids = new int[] { did };
                 personBLL.CreatPersonRelationship(item.Phone, gids, dids);
                
+                ShowMsg("导出联系人：" + item.PersonName + "- 电话：" + item.Phone + "- 部门：" + item.DepartmentName);
+            }
+        }
+
+        public static void DBOperateNoDpt(List<ViewModel.PersonModel> list)
+        {
+            //17年2月20日新加
+            if (!departmentBLL.CheckDepartmentRequired())
+            {
+                ShowMsg("数据库中没有“顶级父节点”，请先在数据库的部门表中创建顶级父节点，设置其DID为0，设置其ＰＤＩＤ为－１");
+                return;
+            }
+            //2 写入数据库
+            //判断是否已经存在群组
+            //list 
+            //2.1 判断或创建群组对象
+
+            var temp = list.FirstOrDefault();
+            var group_name = temp.GroupName;
+            var group_sort = temp.GroupSort;
+            var enum_group = groupBLL.CheckGroupExist(group_name, group_sort);
+
+            //2.2 判断或创建部门
+            //遍历创建部门
+            //2.2.1从集合中查找不重复的部门
+            var department_names = (from d in list.Distinct(new EqualCompare.DepartmentEqualCompare())
+                                    select d.DepartmentName).ToList();
+
+            department_names.ForEach(d => departmentBLL.CheckDepartmentExist(d));
+            string group_name_required = "全部联系人";
+            var group_required = groupBLL.getGroupByName(group_name_required);
+
+            //2.3 批量创建联系人
+            foreach (var item in list)
+            {
+                //2.3.1 判断或创建联系人
+                var eunm = personBLL.CheckPersonExist(item.PersonName, item.Phone);
+                //2.3.2 查找该联系人对象
+                int gid = groupBLL.GetGroupId(item.GroupName);
+                int did = departmentBLL.GetDepartmentId(item.DepartmentName);
+                int[] gids = new int[] { gid, group_required.GID };
+                int[] dids = new int[] { did };
+                personBLL.CreatPersonRelationship(item.Phone, gids, dids);
+
                 ShowMsg("导出联系人：" + item.PersonName + "- 电话：" + item.Phone + "- 部门：" + item.DepartmentName);
             }
         }

@@ -253,11 +253,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Language.zh-cn.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Language1.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Language.resx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
