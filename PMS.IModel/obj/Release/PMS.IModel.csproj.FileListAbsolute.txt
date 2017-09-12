@@ -1,0 +1,5 @@
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PMS.IModel\bin\Release\PMS.IModel.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PMS.IModel\bin\Release\PMS.IModel.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PMS.IModel\obj\Release\PMS.IModel.csprojResolveAssemblyReference.cache
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PMS.IModel\obj\Release\PMS.IModel.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PMS.IModel\obj\Release\PMS.IModel.pdb

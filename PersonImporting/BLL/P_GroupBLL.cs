@@ -44,6 +44,20 @@ namespace PersonImporting.BLL
             return enum_exist;
         }
 
+        public ExistEnum CheckGroupExist(string groupName)
+        {
+            //根据群组名称获取群组集合
+            var groupList = groupBLL.GetListBy(g => g.GroupName == groupName).ToList();
+            ExistEnum enum_exist = ExistEnum.isExist;
+            //判断集合是否为空
+            if (groupList.Count() == 0)
+            {
+                //不需要创建
+                enum_exist = ExistEnum.isNotExist;
+            }
+            return enum_exist;
+        }
+
 
         /// <summary>
         /// 通过名称得到群组对象
@@ -64,6 +78,42 @@ namespace PersonImporting.BLL
         public int GetGroupId(string name)
         {
             return groupBLL.GetListBy(p => p.GroupName.Equals(name)).FirstOrDefault().GID;
+        }
+
+        public List<P_Group> getGroupList()
+        {
+            //获取群组集合
+
+            return groupBLL.GetListBy(g => g.isDel == false).ToList();
+        }
+
+        /// <summary>
+        /// 查找所属联系人
+        /// </summary>
+        /// <param name="GID"></param>
+        /// <returns></returns>
+        public List<PMS.Model.P_PersonInfo> GetBelongingPerson(int GID)
+        {
+            var groupList = groupBLL.GetListBy(d => d.GID == GID).ToList();
+            var belongingPersonList = groupList[0].P_PersonInfo.ToList();
+            return belongingPersonList;
+        }
+
+        /// <summary>
+        /// 获取所属的任务
+        /// </summary>
+        /// <param name="GID"></param>
+        /// <returns></returns>
+        public List<PMS.Model.S_SMSMission> GetBelongMission(int GID)
+        {
+            var departmentList = groupBLL.GetListBy(d => d.GID == GID).ToList();
+            var RGMList = departmentList[0].R_Group_Mission.ToList();
+            List<PMS.Model.S_SMSMission> belongingMissionList = new List<PMS.Model.S_SMSMission>();
+            foreach (var temp in RGMList)
+            {
+                if (!temp.S_SMSMission.isDel) belongingMissionList.Add(temp.S_SMSMission);
+            }
+            return belongingMissionList;
         }
     }
 }

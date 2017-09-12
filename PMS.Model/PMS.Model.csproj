@@ -82,6 +82,7 @@
     <Compile Include="EasyUIModel\EasyUIOption.cs" />
     <Compile Include="EasyUIModel\EasyUITreeGrid_Action.cs" />
     <Compile Include="EasyUIModel\EasyUITreeGrid_Department.cs" />
+    <Compile Include="EasyUIModel\MessageType_ViewModel.cs" />
     <Compile Include="Enum\ExistEnum.cs" />
     <Compile Include="Enum\FileExt_Enum.cs" />
     <Compile Include="Enum\JobState_Enum.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="FormatModel\MyAjaxModel.cs" />
     <Compile Include="FormatModel\SMSDataFormatModel_Receive.cs" />
     <Compile Include="JobDataModel\BaseJobDataModel.cs" />
+    <Compile Include="JobDataModel\QueryJobDataModel.cs" />
     <Compile Include="JobDataModel\SendJobDataModel.cs" />
     <Compile Include="J_JobInfo.cs">
       <DependentUpon>PMSEntities.tt</DependentUpon>
@@ -270,6 +272,7 @@
     <Compile Include="ViewModel\ViewModel_Group_QueryInfo.cs" />
     <Compile Include="ViewModel\ViewModel_isPass_Department.cs" />
     <Compile Include="ViewModel\ViewModel_isPass_Group.cs" />
+    <Compile Include="ViewModel\ViewModel_JobInfo.cs" />
     <Compile Include="ViewModel\ViewModel_JobTemplate.cs" />
     <Compile Include="ViewModel\ViewModel_Message.cs" />
     <Compile Include="ViewModel\ViewModel_Mission_QueryInfo.cs" />

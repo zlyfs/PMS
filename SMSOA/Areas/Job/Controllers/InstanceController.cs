@@ -77,7 +77,7 @@ namespace SMSOA.Areas.Job.Controllers
             ViewBag.LoginUserID = uid;
             ViewBag.jobType = jopType;
             ViewBag.backAction = "DoAddJobInfo";
-
+            ViewBag.isMMs = (jopType == (int)PMS.Model.Enum.JobType_Enum.mmsqueryJob) ? "mms" : "sms";
             ViewBag.GetJobTemplateData = "/Job/Instance/GetJobTemplateDataByTemplate";
            // ViewBag.GetJobTemplate4Combo = "/Job/Instance/GetJobTemplate4Combo";
             return View("ShowEditInstance");
@@ -155,10 +155,12 @@ namespace SMSOA.Areas.Job.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public ContentResult DoAddJobInfo(PMS.Model.J_JobInfo model)
+        public ContentResult DoAddJobInfo(PMS.Model.J_JobInfo/*ViewModel_JobInfo*/ model)
         {
-            
+
             //***此时传入的model中已经包含了uid的值了
+            string ismms = Request["isMMS"].ToString();
+           // string ismms = "sms";
             if (model.NextRunTime <= DateTime.MinValue)
             {
                 model.NextRunTime = DateTime.Now;
@@ -176,7 +178,16 @@ namespace SMSOA.Areas.Job.Controllers
             //注意需要修改此bll中实现的方法，不仅创建J_JobInfo还要创建与UserInfo的关联关系
             //***注意此时的顺序是先向数据库中的JobInfo表写入再执行Quartz操作（向数据库中写入后model中会有JID）——但应该先执行Quartz的添加作业操作****
             //1 将状态写入数据库
-            var response = jobInfoBLL.AddJobInfo(model);
+            //测试彩信查询
+
+            //2017-04-26 casablanca
+            //将是否为短信的标记符放在该JobDataModel中
+            var mmsModel = new PMS.Model.JobDataModel.QueryJobDataModel()
+            {
+                JobDataValue = ismms/* model.isMMS*/
+
+            };
+            var response = jobInfoBLL.AddJobInfo(model,mmsModel);
             return this.ToResponse(response);
 
             //11月20日 备注掉

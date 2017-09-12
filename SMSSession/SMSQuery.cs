@@ -40,7 +40,7 @@ namespace SMSFactory
         /// </summary>
         /// <param name="list">刚刚查询所返回的回执集合</param>
         /// <returns></returns>
-        public QueryState_Enum GetQueryState(List<SMSModel_QueryReceive> list)
+        public virtual QueryState_Enum GetQueryState(List<SMSModel_QueryReceive> list)
         {
             if (list.Count == 1)
             {
@@ -50,21 +50,22 @@ namespace SMSFactory
                     //1:未有未被查询到的用户
                     return QueryState_Enum.finish;
                 }
-                else
-                {
-                    //99：原因未知
-                    return QueryState_Enum.unknown;
-                }
+                //else
+                //{
+                //    //99：原因未知
+                //    return QueryState_Enum.unknown;
+                //}
             }
-            else if(list.Count==0)
+            if(list.Count==0)
             {
                 return QueryState_Enum.error;
             }
-            else
+            if(list.Count>0)
             {
                 //大于1时
                 return QueryState_Enum.remnant;
             }
+            return QueryState_Enum.unknown;
         }
 
         /// <summary>
@@ -74,19 +75,24 @@ namespace SMSFactory
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        public bool QueryMsg(SMSModel_Query smsdata, out List<SMSModel_QueryReceive> list_receiveModel)
+        public virtual bool QueryMsg(PMS.IModel.SMSModel.IQuerySign smsdata, out List<SMSModel_QueryReceive> list_receiveModel)
         {
+            
             String _data = null;//XML文本
             String _serverURL = "http://wt.3tong.net/http/sms/Report";//服务器地址
             string returnMsg;
+            var sgin_sms = smsdata as SMSModel_Query;
             //1 判断参数是否足够
-            if (!SendBeforeCheck(smsdata))
+            if (!SendBeforeCheck(sgin_sms))
             {
                 list_receiveModel = new List<SMSModel_QueryReceive>();
                 return false;
             }
-            _data = ObjTransform.Model2Xml_FormatQuery(smsdata);
+            _data = ObjTransform.Model2Xml_FormatQuery_SMS(sgin_sms);
             returnMsg = httpInvoke(_serverURL, _data);
+
+            //记录查询结果回执
+            Common.LogHelper.WriteLog("查询返回结果为" + returnMsg);
             //解析服务器反馈信息
             if (returnMsg.Length < 1)
             {
@@ -98,7 +104,7 @@ namespace SMSFactory
             //此处有问题           
             list_receiveModel = ObjTransform.Xml2Model_queryReceiveMsg(returnMsg);
             //注意此时传入的smsid为null，注意！！
-            if (this.CheckQueryReceiveLegal(smsdata.smsId, list_receiveModel))
+            if (/*this.CheckQueryReceiveLegal(sgin_sms.smsId, list_receiveModel)*/list_receiveModel.Count>0)
             {
                 return true;
             }
@@ -106,6 +112,8 @@ namespace SMSFactory
             {
                 return false;
             }
+            
+            
                
 
         }
@@ -121,7 +129,7 @@ namespace SMSFactory
             //根据传入的msgid遍历集合中的全部对象
             if(list_receive.Where(q=>q.msgId==msgid).Count()==0)
             {
-                return false;
+                return true;
             }
             return true;
         }

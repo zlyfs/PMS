@@ -120,13 +120,23 @@ namespace QuartzServiceLib
         /// <param name="jobInfo">作业（含UID）</param>
         /// <param name="data_temp">向作业调度中传的临时数据</param>
         /// <returns></returns>
-        public IBaseResponse AddScheduleJob(J_JobInfo jobInfo, PMS.Model.JobDataModel.SendJobDataModel data_temp)
+        public IBaseResponse AddScheduleJob(J_JobInfo jobInfo, /*PMS.Model.JobDataModel.SendJobDataModel*/IJobData data_temp)
         {
             //1 根据Job的类名通过反射的方式创建IJobDetial
             IBaseResponse response = new BaseResponse() { Success = false };
+            IJobDetail job = null;
             //1月20日
-            //在作业工厂类 创建实例方法中 对代码进行修改，若出错则返回null
-            var job = JobFactory.CreateJobInstance(jobInfo, data_temp);
+            try
+            {
+                //在作业工厂类 创建实例方法中 对代码进行修改，若出错则返回null
+                job = JobFactory.CreateJobInstance(jobInfo, data_temp);                
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.ToString();
+                return response;
+            }
+            
 
             if (job == null)
             {
@@ -145,6 +155,7 @@ namespace QuartzServiceLib
                     InitScheduler();
                 }
                 sche.ScheduleJob(job, trigger);
+                LogHelper.WriteLog(string.Format("添加任务id：{0},name：{1}，添加成功，创建时间{2}，创建者{3}\n定时器cron：{4}，下次执行时间：{5}", jobInfo.JID, jobInfo.JobName, jobInfo.CreateTime.ToString(), jobInfo.CreateUser,jobInfo.CronStr??"cron为空",jobInfo.NextRunTime.ToString()));
                 //4 启动工作
                 //不启动该调度池
                 //sche.Start();
@@ -155,7 +166,7 @@ namespace QuartzServiceLib
             catch (Exception ex)
             {
                 response.Success = false;
-                response.Message = ex.Source;
+                response.Message = ex.ToString();
                 //response.Message = string.Format("作业添加至调度池时出错");
             }
 

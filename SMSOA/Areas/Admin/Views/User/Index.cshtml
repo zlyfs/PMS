@@ -279,7 +279,7 @@
 
         //提交
         function confirm_center(obj) {
-            $.messager.confirm('@Resources.Language.Pleaseconfirm', '@Resources.Language.Doyouwanttodothis?', function (r) {
+            $.messager.confirm('@Resources.Language.Pleaseconfirm', '@Resources.Language.Doyouwanttodothis'+'?', function (r) {
                 if (r) {
                     //alert("执行提交操作");
                     $.ajax({
@@ -437,7 +437,7 @@
     <div>
         <table class="easyui-datagrid" id="datagrid"></table>
 
-        @Html.Partial("_Partial_Toolbar_User")
+        @Html.Partial("_Partial_Toolbar_User");
 
         <div class="easyui-window" title="title" scrolling="no" id="editWindow" style="width:400px;height:440px;overflow: hidden" data-options="shadow:true,modal:true">
             <iframe id="setUserRoleFrame" frameborder="0" width="100%" height="100%" scrolling="no" scroll="no" @*不显示滚动条*@></iframe>

@@ -6,6 +6,8 @@ using System.Activities;
 using Common.Redis;
 using PMS.Model.Enum;
 using PMS.BLL;
+using Common.Ioc;
+using PMS.IBLL;
 
 namespace QueryWFLib
 {
@@ -20,6 +22,7 @@ namespace QueryWFLib
         public OutArgument<PMS.Model.Enum.ExistEnum> enum_Exist { get; set; }
 
         public InArgument<PMS.Model.SMSModel.SMSModel_QueryReceive> Item_Model { get; set; }
+       
 
         // 如果活动返回值，则从 CodeActivity<TResult>
         // 并从 Execute 方法返回该值。
@@ -54,6 +57,7 @@ namespace QueryWFLib
             StringRedisHelper redis_string = new StringRedisHelper();
 
             var temp = redis_string.Get(msgid);
+            //temp应为1
             if (temp != null)
             {
                 return true;
@@ -63,14 +67,24 @@ namespace QueryWFLib
                 return false;
             }
         }
+        
 
+        /// <summary>
+        /// 判断指定msgid对应的短信记录中是否包含指定电话
+        /// </summary>
+        /// <param name="msgid"></param>
+        /// <param name="phone"></param>
+        /// <returns></returns>
         private ExistEnum CheckTargetMsgIdContainsPhone(string msgid, string phone)
         {
-            PMS.IBLL.IS_SMSContentBLL contentBLL = new S_SMSContentBLL();
+            IS_SMSContentBLL contentBLL = UnityServiceLocator.Instance.GetService<IS_SMSContentBLL>();
+            //根据指定msgid查询短信内容表
             var content_temp = contentBLL.GetListBy(c => c.msgId == msgid).FirstOrDefault();
+            //根据msgid的短信（彩信）内容表查询对应的发送记录（短彩信共用一张表）
             var record_temp = from r in content_temp.S_SMSRecord_Current
                               where r.PhoneNum == phone
                               select r;
+            //若存在记录，则返回存在，否则返回不存在
             if (record_temp != null)
             {
                 return ExistEnum.isExist;

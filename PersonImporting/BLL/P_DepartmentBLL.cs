@@ -60,6 +60,25 @@ namespace PersonImporting.BLL
             return enum_exist;
         }
 
+        public ExistEnum CheckDepartmentExistNoNew(string departmentName)
+        {
+
+            //根据群组名称获取群组集合
+            //17年2月20日修改：获取无归属部门的DID
+            var PDID = departmentBLL.GetListBy(g => g.DepartmentName == "无归属部门").FirstOrDefault().DID;
+
+            var groupList = departmentBLL.GetListBy(g => g.DepartmentName == departmentName).ToList();
+            ExistEnum enum_exist = ExistEnum.isExist;
+            //判断集合是否为空
+            if (groupList.Count() == 0)
+            {
+                //不需要创建
+                enum_exist = ExistEnum.isNotExist;
+            }
+            return enum_exist;
+        }
+
+
         /// <summary>
         /// 根据部门名称得到Id
         /// </summary>
@@ -69,7 +88,60 @@ namespace PersonImporting.BLL
         {
             return departmentBLL.GetListBy(p => p.DepartmentName.Equals(name)).FirstOrDefault().DID;
         }
-        
 
+        public string GetDepartmentName(int DID)
+        {
+            return departmentBLL.GetListBy(p => p.DID==DID).FirstOrDefault().DepartmentName;
+        }
+
+        /// <summary>
+        /// 获取所有未删除的部门，不包括顶级父节点
+        /// </summary>
+        /// <returns></returns>
+        public List<PMS.Model.P_DepartmentInfo> GetDeparments()
+        {
+            var departmentList = departmentBLL.GetListBy(d => d.isDel == false & d.DID!=0).ToList();
+            return departmentList;
+        }
+
+        /// <summary>
+        /// 用于获取所有子节点
+        /// </summary>
+        /// <param name="DID"></param>
+        /// <returns></returns>
+        public List<PMS.Model.P_DepartmentInfo> GetSonDeparments(int DID)
+        {
+            var departmentList = departmentBLL.GetListBy(d => d.PDID == DID & d.isDel == false).ToList();
+            return departmentList;
+        }
+
+        /// <summary>
+        /// 查找所属联系人
+        /// </summary>
+        /// <param name="DID"></param>
+        /// <returns></returns>
+        public List<PMS.Model.P_PersonInfo> GetBelongingPerson(int DID)
+        {
+            var departmentList = departmentBLL.GetListBy(d => d.DID == DID).ToList();
+            var belongingPersonList = departmentList[0].P_PersonInfo.ToList();
+            return belongingPersonList;
+        }
+
+        /// <summary>
+        /// 获取所属的任务
+        /// </summary>
+        /// <param name="DID"></param>
+        /// <returns></returns>
+        public List<PMS.Model.S_SMSMission> GetBelongMission(int DID)
+        {
+            var departmentList = departmentBLL.GetListBy(d => d.DID == DID).ToList();
+            var RDMList = departmentList[0].R_Department_Mission.ToList();
+            List<PMS.Model.S_SMSMission> belongingMissionList = new List<PMS.Model.S_SMSMission>();
+            foreach (var temp in RDMList)
+            {
+                if (!temp.S_SMSMission.isDel) belongingMissionList.Add(temp.S_SMSMission);
+            }
+            return belongingMissionList;
+        }
     }
 }

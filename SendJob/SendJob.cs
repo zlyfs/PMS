@@ -15,12 +15,7 @@ namespace JobInstances
 {
     public class SendJob : JobAbstract
     {
-        //protected IUserInfoBLL userInfoBLL { get; set; }
-
-        //protected IJ_JobInfoBLL jobInfoBLL { get; set; }
-
-        //protected IQRTZ_TRIGGERSBLL qrtz_triggerBLL { get; set; }
-
+        
         protected ISMS.ISMSSend smsSendBLL { get; set; }
 
         public SendJob():base()
@@ -37,41 +32,49 @@ namespace JobInstances
         protected override void ExceuteBody(IJobExecutionContext context)
         {
             LogHelper.WriteLog("执行发送作业");
-            var dataMap = context.JobDetail.JobDataMap;
-            
-            //反序列化
-            //var send_model =Common.SerializerHelper.DeSerializerToObject<PMS.Model.SMSModel.SMSModel_Send>(dataMap["SendModel"].ToString());
-            var sendjob_model = Common.SerializerHelper.DeSerializerToObject<PMS.Model.JobDataModel.SendJobDataModel>(dataMap["SendModel"].ToString());
-           var obj= sendjob_model.JobDataValue;
-            var combine_model = Common.SerializerHelper.DeSerializerToObject<PMS.Model.CombineModel.SendAndMessage_Model>(obj.ToString());
-            combine_model.Model_Message.isTiming = false;
-            //var send_model = dataMap["SendModel"] as PMS.Model.JobDataModel.SendJobDataModel;
-
-            //其他信息: 在 ServiceModel 客户端配置部分中，找不到引用协定“ServiceReference_QuartzService.IJobService”的默认终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此协定匹配的终结点元素。
-            ISMSSend send = new SMSFactory.SMSSend();
-
-            //PMS.Model.SMSModel.SMSModel_Receive receive_model = new PMS.Model.SMSModel.SMSModel_Receive();
-            PMS.IModel.ISMSModel_Receive receive_model = new PMS.Model.SMSModel.SMSModel_Receive();
-
-            PMS.Model.Message.BaseResponse response = new PMS.Model.Message.BaseResponse();
-
-            //send.SendMsg(new PMS.Model.CombineModel.SendAndMessage_Model() { Model_Send = combine_model, Model_Message = new PMS.Model.ViewModel.ViewModel_Message() { isTiming = false } } , out receive_model);
             try
             {
-                send.SendMsg(combine_model, out receive_model,false);
-                LogHelper.WriteLog(string.Format("msgid:{0}已发送", combine_model.Model_Send.msgid));
+                var dataMap = context.JobDetail.JobDataMap;
+
+                //反序列化                
+                var sendjob_model = new PMS.Model.JobDataModel.SendJobDataModel();                
+                LogHelper.WriteLog(string.Format("sendmodel为:{0}", dataMap["SendModel"].ToString()));
+                var send_model_message = Common.SerializerHelper.DeSerializerToObject<PMS.Model.CombineModel.SendAndMessage_Model>(dataMap["SendModel"].ToString()); 
+
+                send_model_message.Model_Message.isTiming = false;
+                
+                //其他信息: 在 ServiceModel 客户端配置部分中，找不到引用协定“ServiceReference_QuartzService.IJobService”的默认终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此协定匹配的终结点元素。
+                ISMSSend send = new SMSFactory.SMSSend();
+
+                //PMS.Model.SMSModel.SMSModel_Receive receive_model = new PMS.Model.SMSModel.SMSModel_Receive();
+                PMS.IModel.ISMSModel_Receive receive_model = new PMS.Model.SMSModel.SMSModel_Receive();
+
+                PMS.Model.Message.BaseResponse response = new PMS.Model.Message.BaseResponse();
+                try
+                {
+                    //receive_model中包含msgid
+                    send.SendMsg(send_model_message, out receive_model, false);
+                    LogHelper.WriteLog(string.Format("msgid:{0}已发送", send_model_message.Model_Send.msgid));
+                }
+                catch (Exception ex)
+                {
+                    if (send_model_message.Model_Send.msgid != null)
+                    {
+                        LogHelper.WriteError(string.Format("msgid:{0}发送失败,错误原因{1}", send_model_message.Model_Send.msgid), ex);
+                    }
+                    else
+                    {
+                        LogHelper.WriteError(string.Format("出现错误:Msg:{0}", ex.ToString()));
+                    }
+                }
             }
             catch (Exception ex)
             {
-                if (combine_model.Model_Send.msgid != null)
-                {
-                    LogHelper.WriteError(string.Format("msgid:{0}发送失败,错误原因{1}", combine_model.Model_Send.msgid), ex);
-                }
-                else
-                {
-                    LogHelper.WriteError(string.Format("出现错误:Msg:{0}", ex.ToString()));
-                }
+
+                LogHelper.WriteError(string.Format("错误代码{0}",ex.ToString()));
             }
+            
+            
             
             PMS.Model.ViewModel.ViewModel_Message model = new PMS.Model.ViewModel.ViewModel_Message()
             {
@@ -83,8 +86,10 @@ namespace JobInstances
             //smsSendBLL.AfterSend(model, receive_model,)
         }
 
+        //需要向数据库写回作业状态
         protected void AfterSend()
         {
+            //获取QRTZ_JOB_DETAILS表中的当前作业的JOB NAME——即J_JobInfo表的id
             if (this.smsSendBLL == null)
             {
                 smsSendBLL = new SMSFactory.SMSSend();
@@ -93,6 +98,7 @@ namespace JobInstances
             
         }
 
+        #region 注释掉的Exceuted方法
         //protected override void Exceuted(IJobExecutionContext context)
         //{
         //    if (jobInfoBLL == null)
@@ -183,16 +189,7 @@ namespace JobInstances
         //    else
         //        return false;
         //}
-
-        public class ServiceReference1
-        {
-            public class SendMsgRequest
-            {
-            }
-
-            public class SendMsgResponse
-            {
-            }
-        }
+        #endregion
+        
     }
 }

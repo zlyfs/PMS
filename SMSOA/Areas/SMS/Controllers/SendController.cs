@@ -18,7 +18,7 @@ using JobManagement;
 
 namespace SMSOA.Areas.SMS.Controllers
 {
-    public class SendController : Admin.Controllers.BaseController
+    public class SendController : /*Admin.Controllers.BaseController*/SMSBaseController
     {
         IS_SMSMissionBLL smsMissionBLL { get; set; }
         IP_GroupBLL groupBLL { get; set; }
@@ -36,6 +36,13 @@ namespace SMSOA.Areas.SMS.Controllers
 
         public ActionResult Index()
         {
+            //17年4月12日 新增：在发送完成后跳转到彩信发送页面的url
+            ViewBag.GetIframe_MMS = "/SMS/MMSSend/Index";
+
+            //17年4月12日 新增：在发送完成后跳转到彩信发送页面的title。注意！！！此处的title为彩信发送，需要与数据库中权限表的彩信发送的Name一致（暂时写死，需要从权限表中读取）。
+            
+            ViewBag.MMS_Name = Resources.Language.SendMMS;
+
             ViewBag.GetAllMission_combogrid = "/SMS/Send/GetAllMissionByPID";
             ViewBag.GetMissionByUID = "/SMS/Send/GetMissionByUID";
             ViewBag.GetGroupByMID_combogrid = "/SMS/Send/GetGroupByMID";
@@ -56,7 +63,7 @@ namespace SMSOA.Areas.SMS.Controllers
             
             return View();
         }
-
+        
         public ActionResult ShowSetWindow()
         {
             ViewBag.LoginUserID = -999;
@@ -297,7 +304,15 @@ namespace SMSOA.Areas.SMS.Controllers
 
 
             //根据短信任务查找短信任务所拥有的群组（在R_Group_Mission表中），并只拿取isPass为true的所对应的群组
-            smsMissionBLL.GetListBy(m => m.SMID == mid).FirstOrDefault().R_Group_Mission.Where(r => r.isPass == true).ToList().ForEach(r => list_owned_group.Add(r.P_Group));
+            //17.4.17修改 By屈远 加入
+            smsMissionBLL.
+                GetListBy(m => m.SMID == mid).
+                FirstOrDefault().
+                R_Group_Mission.
+                Where(r => r.isPass == true & r.isMMS == 0).
+                ToList().
+                ForEach(r => list_owned_group.Add(r.P_Group));
+
             list_owned_group = list_owned_group.Select(g => g.ToMiddleModel()).ToList();
             var list_owned_Ids = list_owned_group.Select(g => g.GID).ToList();
 
@@ -505,9 +520,14 @@ namespace SMSOA.Areas.SMS.Controllers
             list_PersonPhonesByGroupAndDepartment.AddRange(list_tempPersonPhones);
 
             var list_phones = list_PersonPhonesByGroupAndDepartment;
-
+           var isEmpty= list_phones.Count() == 0 ? true : false;
+            if (isEmpty)
+            {
+                receive = new SMSModel_Receive();
+                return false;
+            }
             //3 转成发送对象
-           var sendMsg= smsSendBLL.ToSendModel(model.Model_Message, list_phones);
+            var sendMsg= smsSendBLL.ToSendModel(model.Model_Message, list_phones);
 
             /*步骤四
                     生成提交对象及短信及作业对象
@@ -606,7 +626,7 @@ namespace SMSOA.Areas.SMS.Controllers
 
             //****注意此处还未实现向前台向后台传递对象时应加上uid，并向combin_model中加入uid（以包含此属性）
             var isOk_Send= DoSendNow(combine_model, out receive);
-
+            //var isOk_Send = "0";
             #region 测试批量写入时间时的测试返回对象
             //测试批量写入时间时的测试返回对象——现注释掉
             //SMSModel_Receive testModel = new SMSModel_Receive()
@@ -617,16 +637,23 @@ namespace SMSOA.Areas.SMS.Controllers
             //    result = "0"
             //};
             #endregion
+            var receive_model = receive as SMSModel_Receive;
 
-            AfterSend(combine_model.Model_Message, receive as SMSModel_Receive/*testModel*/, combine_model.Model_Send.phones.ToList());
+            //if (receive_model.msgid != null)
+            //{
+            //    AfterSend(combine_model.Model_Message, receive_model /*testModel*/, combine_model.Model_Send.phones.ToList());
+            //}
+
             //if (!isSaveMsgOk)
             //{
             //    return Content("服务器错误");
             //}
-
+            
             if ("0".Equals((receive as SMSModel_Receive).result)&&isOk_Send)
             {
                 //6 查询发送状态(是否加入等待时间？)
+                //7 检查是否还要发彩信
+                if (isIncludeMMSGroups(int.Parse(model.SMSMissionID))) { return Content("ok_nextMMS"); }
                 return Content("ok");
                 
             }
@@ -663,11 +690,20 @@ namespace SMSOA.Areas.SMS.Controllers
         /// <returns></returns>
         public ActionResult GetDepartmentInfo4ComboTree(int mid)
         {
+
+            int index_isMMs = 0;
+            index_isMMs=int.Parse(Request["isMMS"]);
             //根据短信任务找到与该任务对应的所属部门
            var mission= smsMissionBLL.GetListBy(m => m.SMID == mid).FirstOrDefault();
             List<int> list_id = new List<int>();
             
-            mission.R_Department_Mission.ToList().ForEach(r => list_id.Add(r.DepartmentID));
+            //2017-04-17 casablanca
+            mission.
+                R_Department_Mission.
+                Where(r=>r.isMMS== index_isMMs).
+                ToList().
+                ForEach(r => list_id.Add(r.DepartmentID));
+
            var list_alldepartment= departmentBLL.GetListBy(d => d.isDel == false).ToList().Select(d=>d.ToMiddleModel()).ToList();
             //8月31日
             //备份如下
@@ -719,7 +755,7 @@ namespace SMSOA.Areas.SMS.Controllers
             //将权限转换为对应的
             return Content(Common.SerializerHelper.SerializerToString(model));
         }
-
+     
         public override ViewModel_MyHttpContext GetHttpContext()
         {
             var httpModel = new ViewModel_MyHttpContext()
@@ -730,6 +766,24 @@ namespace SMSOA.Areas.SMS.Controllers
                 Url = Request.Url.ToString()
             };
             return httpModel;
+        }
+        /// <summary>
+        /// 检查是否有彩信群组
+        /// </summary>
+        /// <returns></returns>
+        private bool isIncludeMMSGroups(int mid)
+        {
+            var mission = smsMissionBLL.GetListBy(m => m.SMID == mid).FirstOrDefault();
+            bool isMMS = false;
+            if (mission != null)
+            {
+                var list  = smsMissionBLL.GetMMSGroups(true, mission);
+                if(0 < list.Count)
+                {
+                    isMMS = true;
+                }    
+            }
+            return isMMS;
         }
     }
 }

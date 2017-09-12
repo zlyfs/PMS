@@ -85,4 +85,3 @@ D:\VSWorkSpace\nmefc\PMS\PersonImporting\bin\Debug\zh-Hans\System.Web.Mvc.resour
 D:\VSWorkSpace\nmefc\PMS\PersonImporting\obj\Debug\PersonImporting.csprojResolveAssemblyReference.cache
 D:\VSWorkSpace\nmefc\PMS\PersonImporting\obj\Debug\PersonImporting.exe
 D:\VSWorkSpace\nmefc\PMS\PersonImporting\obj\Debug\PersonImporting.pdb
-D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PersonImporting\bin\Debug\PersonImporting.exe.config

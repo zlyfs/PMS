@@ -16,7 +16,11 @@ namespace QuartzProxy.ServiceReference_QuartzService {
     public interface IJobService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/AddScheduleJob", ReplyAction="http://tempuri.org/IJobService/AddScheduleJobResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.QueryJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.SendAndMessage_Model))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.BaseMessage_Model))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_Message))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_BaseJob))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(int[]))]
@@ -55,6 +59,10 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_SMSMission))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsStorage))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsTracker))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_History[]))]
@@ -66,15 +74,17 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.UserInfo[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
-        object AddScheduleJob(PMS.Model.J_JobInfo jobInfo, PMS.Model.JobDataModel.SendJobDataModel data_temp);
+        object AddScheduleJob(PMS.Model.J_JobInfo jobInfo, object data_temp);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/AddScheduleJob", ReplyAction="http://tempuri.org/IJobService/AddScheduleJobResponse")]
-        System.Threading.Tasks.Task<object> AddScheduleJobAsync(PMS.Model.J_JobInfo jobInfo, PMS.Model.JobDataModel.SendJobDataModel data_temp);
+        System.Threading.Tasks.Task<object> AddScheduleJobAsync(PMS.Model.J_JobInfo jobInfo, object data_temp);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/AddListener", ReplyAction="http://tempuri.org/IJobService/AddListenerResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.QueryJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.SendAndMessage_Model))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.BaseMessage_Model))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_Message))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_BaseJob))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(int[]))]
@@ -113,6 +123,10 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_SMSMission))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsStorage))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsTracker))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_History[]))]
@@ -124,8 +138,6 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.UserInfo[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
         void AddListener(object jobListener, string JobName, string GroupName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/AddListener", ReplyAction="http://tempuri.org/IJobService/AddListenerResponse")]
@@ -138,7 +150,11 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         System.Threading.Tasks.Task ResumeAllJobAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/ResumeTargetJob", ReplyAction="http://tempuri.org/IJobService/ResumeTargetJobResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.QueryJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.SendAndMessage_Model))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.BaseMessage_Model))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_Message))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_BaseJob))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(int[]))]
@@ -177,6 +193,10 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_SMSMission))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsStorage))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsTracker))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_History[]))]
@@ -188,15 +208,17 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.UserInfo[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
         object ResumeTargetJob(PMS.Model.J_JobInfo job);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/ResumeTargetJob", ReplyAction="http://tempuri.org/IJobService/ResumeTargetJobResponse")]
         System.Threading.Tasks.Task<object> ResumeTargetJobAsync(PMS.Model.J_JobInfo job);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/RemovceJob", ReplyAction="http://tempuri.org/IJobService/RemovceJobResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.QueryJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.SendAndMessage_Model))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.BaseMessage_Model))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_Message))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_BaseJob))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(int[]))]
@@ -235,6 +257,10 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_SMSMission))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsStorage))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsTracker))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_History[]))]
@@ -246,15 +272,17 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.UserInfo[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
         object RemovceJob(PMS.Model.J_JobInfo job);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/RemovceJob", ReplyAction="http://tempuri.org/IJobService/RemovceJobResponse")]
         System.Threading.Tasks.Task<object> RemovceJobAsync(PMS.Model.J_JobInfo job);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/PauseJob", ReplyAction="http://tempuri.org/IJobService/PauseJobResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.QueryJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.SendAndMessage_Model))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.BaseMessage_Model))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_Message))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_BaseJob))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(int[]))]
@@ -293,6 +321,10 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_SMSMission))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsStorage))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsTracker))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_History[]))]
@@ -304,15 +336,17 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.UserInfo[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
         object PauseJob(PMS.Model.J_JobInfo job);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/PauseJob", ReplyAction="http://tempuri.org/IJobService/PauseJobResponse")]
         System.Threading.Tasks.Task<object> PauseJobAsync(PMS.Model.J_JobInfo job);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/RemoveJob", ReplyAction="http://tempuri.org/IJobService/RemoveJobResponse")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.QueryJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.SendAndMessage_Model))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.CombineModel.BaseMessage_Model))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_Message))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.ViewModel.ViewModel_BaseJob))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(int[]))]
@@ -351,6 +385,10 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_SMSMission))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsContent))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsStorage))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.FdfsTracker))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_Current))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.S_SMSRecord_History[]))]
@@ -362,8 +400,6 @@ namespace QuartzProxy.ServiceReference_QuartzService {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.R_UserInfo_PersonInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.UserInfo[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.SendJobDataModel))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(PMS.Model.JobDataModel.BaseJobDataModel))]
         object RemoveJob(PMS.Model.J_JobInfo job);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IJobService/RemoveJob", ReplyAction="http://tempuri.org/IJobService/RemoveJobResponse")]
@@ -397,11 +433,11 @@ namespace QuartzProxy.ServiceReference_QuartzService {
                 base(binding, remoteAddress) {
         }
         
-        public object AddScheduleJob(PMS.Model.J_JobInfo jobInfo, PMS.Model.JobDataModel.SendJobDataModel data_temp) {
+        public object AddScheduleJob(PMS.Model.J_JobInfo jobInfo, object data_temp) {
             return base.Channel.AddScheduleJob(jobInfo, data_temp);
         }
         
-        public System.Threading.Tasks.Task<object> AddScheduleJobAsync(PMS.Model.J_JobInfo jobInfo, PMS.Model.JobDataModel.SendJobDataModel data_temp) {
+        public System.Threading.Tasks.Task<object> AddScheduleJobAsync(PMS.Model.J_JobInfo jobInfo, object data_temp) {
             return base.Channel.AddScheduleJobAsync(jobInfo, data_temp);
         }
         

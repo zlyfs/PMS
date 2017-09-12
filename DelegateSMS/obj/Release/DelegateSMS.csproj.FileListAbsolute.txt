@@ -1,0 +1,16 @@
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\DelegateSMS.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\DelegateSMS.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\PMS.Model.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\PMS.IModel.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\EntityFramework.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\FastDFS.Client.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\System.Web.Mvc.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\PMS.Model.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\PMS.IModel.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\EntityFramework.xml
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\System.Web.Mvc.xml
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\zh-Hans\EntityFramework.resources.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\bin\Release\zh-Hans\System.Web.Mvc.resources.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\obj\Release\DelegateSMS.csprojResolveAssemblyReference.cache
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\obj\Release\DelegateSMS.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\DelegateSMS\obj\Release\DelegateSMS.pdb
