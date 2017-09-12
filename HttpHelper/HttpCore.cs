@@ -134,6 +134,7 @@ namespace HttpHelper
         static HttpResponseParameter SetResponse(HttpWebRequest webRequest, HttpRequestParameter requestParameter)
         {
             HttpResponseParameter responseParameter = new HttpResponseParameter();
+            webRequest.ContentLength = 0;
             using (HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse())
             {
                 responseParameter.Uri = webResponse.ResponseUri;

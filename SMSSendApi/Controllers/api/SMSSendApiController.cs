@@ -78,29 +78,33 @@ namespace SMSSendApi.Controllers.api
                 return sendResponseModel;
             }
 
+            var temp_smsmission= smsMissionBLL.GetListBy(s => s.SMSMissionName == sendModel.SMSMissionNames).FirstOrDefault();
 
-            ////***测试用，之后用传入的参数替代***
-            //var sendObj = new ViewModel_Message()
-            //{
-            //    PersonIds = new string[] { "101", "102" }.ToString(),
-            //    GroupIds = new int[] { 101, 102 },
-            //    Content = "测试测试",
-            //    SMSMissionID = "102"
-            //};
-            //IHttpProvider httpProvider = new HttpProvider();
+            //***测试用，之后用传入的参数替代***
+            //测试-2，只传入任务及内容
+            var sendObj = new ViewModel_Message()
+            {
 
-            ////2 请求短信发送action url
-            //HttpResponseParameter responseParameter = httpProvider.Excute(new HttpRequestParameter
-            //{
-            //    Url = "128.5.6.57/SMS/Send/DoSend/",
-            //    IsPost = true,
-            //    Encoding = Encoding.UTF8,
-            //    JsonData = Common.SerializerHelper.SerializerToString(sendObj)
-            //});
+                //PersonIds = new string[] { "101", "102" }.ToString(),
+                //GroupIds = new int[] { 101, 102 },
+                //SMSMissionID = "102"
+                Content = sendModel.Content,
+                SMSMissionID = temp_smsmission.SMID.ToString()  
+            };
+            IHttpProvider httpProvider = new HttpProvider();
 
-            ////3 将返执行发送后的结果转换为SendResponseModel，序列化后返回
-            ////未完成
-            //return new SendResponseModel() { };
+            //2 请求短信发送action url
+            HttpResponseParameter responseParameter = httpProvider.Excute(new HttpRequestParameter
+            {
+                Url = "http://128.5.10.57:11021/SMS/Send/DoSend/",
+                IsPost = true,
+                Encoding = Encoding.UTF8,
+                JsonData = Common.SerializerHelper.SerializerToString(sendObj)
+            });
+
+            //3 将返执行发送后的结果转换为SendResponseModel，序列化后返回
+            //未完成
+            return new SendResponseModel() { };
         }
     }
 }
