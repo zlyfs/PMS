@@ -23,7 +23,8 @@ namespace MeetingMsgSender
         private void timer1_Tick(object sender, EventArgs e)
         {
             DateTime lastTime = ReadTime("./data/lastTime.txt");
-
+            WriteTime("./data/lastTime.txt", DateTime.Now);
+            label2.Text = "上次检查时间：" + lastTime + " 本次检查时间：" + DateTime.Now;
             MsgContentBLL msgContentBLL = new MsgContentBLL();
             //查看最新收的信息
             var msgContent = msgContentBLL.CheckMsgContent(lastTime);
@@ -34,8 +35,7 @@ namespace MeetingMsgSender
                     label1.Text = "Send: " + temp;
                 }
                 else label1.Text = "连接失败，放弃。";
-            }
-            WriteTime("./data/lastTime.txt", DateTime.Now);
+            }        
         }
 
         private static bool SendMsg(string msgTxt)
