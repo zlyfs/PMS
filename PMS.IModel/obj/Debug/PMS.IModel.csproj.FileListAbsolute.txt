@@ -2,3 +2,8 @@ D:\VSWorkSpace\nmefc\PMS\PMS.IModel\bin\Debug\PMS.IModel.dll
 D:\VSWorkSpace\nmefc\PMS\PMS.IModel\bin\Debug\PMS.IModel.pdb
 D:\VSWorkSpace\nmefc\PMS\PMS.IModel\obj\Debug\PMS.IModel.dll
 D:\VSWorkSpace\nmefc\PMS\PMS.IModel\obj\Debug\PMS.IModel.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PMS.IModel\bin\Debug\PMS.IModel.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PMS.IModel\bin\Debug\PMS.IModel.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PMS.IModel\obj\Debug\PMS.IModel.csprojResolveAssemblyReference.cache
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PMS.IModel\obj\Debug\PMS.IModel.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\PMS.IModel\obj\Debug\PMS.IModel.pdb
