@@ -109,12 +109,16 @@ namespace SMSSendApi.Controllers.api
 
             var session_id= this.Set2Memcached(userid.ToString());
 
+            
+
             CookieCollection cookies = new CookieCollection();
             cookies.Add(
                 new Cookie()
                 {
                     Name = cookie_sessionId,
-                    Value = session_id
+                    Value = session_id,
+                     Expires=DateTime.Now.AddHours(3),
+                     Domain="nmefc"
                 });
 
             var temp_smsmission= smsMissionBLL.GetListBy(s => s.SMSMissionName == sendModel.SMSMissionNames).FirstOrDefault();
