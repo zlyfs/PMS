@@ -4,6 +4,10 @@
     <EntitySetMapping Name="ActionInfo">
       <EntityTypeMapping TypeName="PMS2016Model.ActionInfo">
         <MappingFragment StoreEntitySet="ActionInfo">
+          <ScalarProperty Name="JsFunctionName" ColumnName="JsFunctionName" />
+          <ScalarProperty Name="IconClassName" ColumnName="IconClassName" />
+          <ScalarProperty Name="IconCls" ColumnName="IconCls" />
+          <ScalarProperty Name="MethodTypeEnum" ColumnName="MethodTypeEnum" />
           <ScalarProperty Name="isShow" ColumnName="isShow" />
           <ScalarProperty Name="ParentID" ColumnName="ParentID" />
           <ScalarProperty Name="AreaName" ColumnName="AreaName" />
@@ -27,6 +31,7 @@
     <EntitySetMapping Name="R_UserInfo_ActionInfo">
       <EntityTypeMapping TypeName="PMS2016Model.R_UserInfo_ActionInfo">
         <MappingFragment StoreEntitySet="R_UserInfo_ActionInfo">
+          <ScalarProperty Name="isDefault" ColumnName="isDefault" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="UserInfoID" ColumnName="UserInfoID" />
           <ScalarProperty Name="ActionInfoID" ColumnName="ActionInfoID" />
@@ -118,6 +123,7 @@
     <EntitySetMapping Name="R_Department_Mission">
       <EntityTypeMapping TypeName="PMS2016Model.R_Department_Mission">
         <MappingFragment StoreEntitySet="R_Department_Mission">
+          <ScalarProperty Name="isMMS" ColumnName="isMMS" />
           <ScalarProperty Name="isPass" ColumnName="isPass" />
           <ScalarProperty Name="SubTime" ColumnName="SubTime" />
           <ScalarProperty Name="MissionID" ColumnName="MissionID" />
@@ -129,6 +135,7 @@
     <EntitySetMapping Name="R_Group_Mission">
       <EntityTypeMapping TypeName="PMS2016Model.R_Group_Mission">
         <MappingFragment StoreEntitySet="R_Group_Mission">
+          <ScalarProperty Name="isMMS" ColumnName="isMMS" />
           <ScalarProperty Name="isPass" ColumnName="isPass" />
           <ScalarProperty Name="GroupID" ColumnName="GroupID" />
           <ScalarProperty Name="MissionID" ColumnName="MissionID" />
@@ -189,6 +196,8 @@
     <EntitySetMapping Name="S_SMSContent">
       <EntityTypeMapping TypeName="PMS2016Model.S_SMSContent">
         <MappingFragment StoreEntitySet="S_SMSContent">
+          <ScalarProperty Name="MSTitle" ColumnName="MSTitle" />
+          <ScalarProperty Name="isMMS" ColumnName="isMMS" />
           <ScalarProperty Name="smsCount" ColumnName="smsCount" />
           <ScalarProperty Name="ResultCode" ColumnName="ResultCode" />
           <ScalarProperty Name="BlackList" ColumnName="BlackList" />
@@ -259,5 +268,207 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="R_UserInfo_News">
+      <EntityTypeMapping TypeName="PMS2016Model.R_UserInfo_News">
+        <MappingFragment StoreEntitySet="R_UserInfo_News">
+          <ScalarProperty Name="isCheck" ColumnName="isCheck" />
+          <ScalarProperty Name="NID" ColumnName="NID" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="N_News">
+      <EntityTypeMapping TypeName="PMS2016Model.N_News">
+        <MappingFragment StoreEntitySet="N_News">
+          <ScalarProperty Name="isDel" ColumnName="isDel" />
+          <ScalarProperty Name="SubDateTime" ColumnName="SubDateTime" />
+          <ScalarProperty Name="NewsContent" ColumnName="NewsContent" />
+          <ScalarProperty Name="NewsType" ColumnName="NewsType" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+          <ScalarProperty Name="SNID" ColumnName="SNID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WF_Query_StepInfo">
+      <EntityTypeMapping TypeName="PMS2016Model.WF_Query_StepInfo">
+        <MappingFragment StoreEntitySet="WF_Query_StepInfo">
+          <ScalarProperty Name="WF_Query" ColumnName="WF_Query" />
+          <ScalarProperty Name="ChildStepId" ColumnName="ChildStepId" />
+          <ScalarProperty Name="ParentStepId" ColumnName="ParentStepId" />
+          <ScalarProperty Name="ProcessBy" ColumnName="ProcessBy" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="ProcessTime" ColumnName="ProcessTime" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="isDel" ColumnName="isDel" />
+          <ScalarProperty Name="StepResult" ColumnName="StepResult" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="isEndStep" ColumnName="isEndStep" />
+          <ScalarProperty Name="isStartStep" ColumnName="isStartStep" />
+          <ScalarProperty Name="isProcessed" ColumnName="isProcessed" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="S_SMSType">
+      <EntityTypeMapping TypeName="PMS2016Model.S_SMSType">
+        <MappingFragment StoreEntitySet="S_SMSType">
+          <ScalarProperty Name="isDel" ColumnName="isDel" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="TID" ColumnName="TID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WF_Query_Instance">
+      <EntityTypeMapping TypeName="PMS2016Model.WF_Query_Instance">
+        <MappingFragment StoreEntitySet="WF_Query_Instance">
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="WF_TempID" ColumnName="WF_TempID" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="SubForm" ColumnName="SubForm" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="StartedBy" ColumnName="StartedBy" />
+          <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="J_JobTemplate">
+      <EntityTypeMapping TypeName="PMS2016Model.J_JobTemplate">
+        <MappingFragment StoreEntitySet="J_JobTemplate">
+          <ScalarProperty Name="isBtn" ColumnName="isBtn" />
+          <ScalarProperty Name="JobGroup" ColumnName="JobGroup" />
+          <ScalarProperty Name="JTName" ColumnName="JTName" />
+          <ScalarProperty Name="isDel" ColumnName="isDel" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="JobType" ColumnName="JobType" />
+          <ScalarProperty Name="CronStr" ColumnName="CronStr" />
+          <ScalarProperty Name="JobClassName" ColumnName="JobClassName" />
+          <ScalarProperty Name="JTID" ColumnName="JTID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="J_JobInfo">
+      <EntityTypeMapping TypeName="PMS2016Model.J_JobInfo">
+        <MappingFragment StoreEntitySet="J_JobInfo">
+          <ScalarProperty Name="isDel" ColumnName="isDel" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="InfoState" ColumnName="InfoState" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="AppID" ColumnName="AppID" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="NextRunTime" ColumnName="NextRunTime" />
+          <ScalarProperty Name="EndRunTime" ColumnName="EndRunTime" />
+          <ScalarProperty Name="StartRunTime" ColumnName="StartRunTime" />
+          <ScalarProperty Name="CronStr" ColumnName="CronStr" />
+          <ScalarProperty Name="JobState" ColumnName="JobState" />
+          <ScalarProperty Name="JobClassName" ColumnName="JobClassName" />
+          <ScalarProperty Name="JobGroup" ColumnName="JobGroup" />
+          <ScalarProperty Name="JobName" ColumnName="JobName" />
+          <ScalarProperty Name="JID" ColumnName="JID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="R_UserInfo_JobInfo" TypeName="PMS2016Model.R_UserInfo_JobInfo" StoreEntitySet="R_UserInfo_JobInfo">
+      <EndProperty Name="UserInfo">
+        <ScalarProperty Name="ID" ColumnName="UID" />
+      </EndProperty>
+      <EndProperty Name="J_JobInfo">
+        <ScalarProperty Name="JID" ColumnName="JID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="R_UserInfo_JobTemplate" TypeName="PMS2016Model.R_UserInfo_JobTemplate" StoreEntitySet="R_UserInfo_JobTemplate">
+      <EndProperty Name="UserInfo">
+        <ScalarProperty Name="ID" ColumnName="UID" />
+      </EndProperty>
+      <EndProperty Name="J_JobTemplate">
+        <ScalarProperty Name="JTID" ColumnName="JTID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="R_JobInfo_JobTemplate" TypeName="PMS2016Model.R_JobInfo_JobTemplate" StoreEntitySet="R_JobInfo_JobTemplate">
+      <EndProperty Name="J_JobTemplate">
+        <ScalarProperty Name="JTID" ColumnName="JTID" />
+      </EndProperty>
+      <EndProperty Name="J_JobInfo">
+        <ScalarProperty Name="JID" ColumnName="JID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="R_JobTemplate_RoleInfo" TypeName="PMS2016Model.R_JobTemplate_RoleInfo" StoreEntitySet="R_JobTemplate_RoleInfo">
+      <EndProperty Name="RoleInfo">
+        <ScalarProperty Name="ID" ColumnName="RID" />
+      </EndProperty>
+      <EndProperty Name="J_JobTemplate">
+        <ScalarProperty Name="JTID" ColumnName="JTID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="QRTZ_TRIGGERS">
+      <EntityTypeMapping TypeName="PMS2016Model.QRTZ_TRIGGERS">
+        <MappingFragment StoreEntitySet="QRTZ_TRIGGERS">
+          <ScalarProperty Name="JOB_DATA" ColumnName="JOB_DATA" />
+          <ScalarProperty Name="MISFIRE_INSTR" ColumnName="MISFIRE_INSTR" />
+          <ScalarProperty Name="CALENDAR_NAME" ColumnName="CALENDAR_NAME" />
+          <ScalarProperty Name="END_TIME" ColumnName="END_TIME" />
+          <ScalarProperty Name="START_TIME" ColumnName="START_TIME" />
+          <ScalarProperty Name="TRIGGER_TYPE" ColumnName="TRIGGER_TYPE" />
+          <ScalarProperty Name="TRIGGER_STATE" ColumnName="TRIGGER_STATE" />
+          <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+          <ScalarProperty Name="PREV_FIRE_TIME" ColumnName="PREV_FIRE_TIME" />
+          <ScalarProperty Name="NEXT_FIRE_TIME" ColumnName="NEXT_FIRE_TIME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="JOB_GROUP" ColumnName="JOB_GROUP" />
+          <ScalarProperty Name="JOB_NAME" ColumnName="JOB_NAME" />
+          <ScalarProperty Name="TRIGGER_GROUP" ColumnName="TRIGGER_GROUP" />
+          <ScalarProperty Name="TRIGGER_NAME" ColumnName="TRIGGER_NAME" />
+          <ScalarProperty Name="SCHED_NAME" ColumnName="SCHED_NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FdfsContent">
+      <EntityTypeMapping TypeName="PMS2016Model.FdfsContent">
+        <MappingFragment StoreEntitySet="FdfsContent">
+          <ScalarProperty Name="Ext" ColumnName="Ext" />
+          <ScalarProperty Name="ScrollName" ColumnName="ScrollName" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="TID" ColumnName="TID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FdfsStorage">
+      <EntityTypeMapping TypeName="PMS2016Model.FdfsStorage">
+        <MappingFragment StoreEntitySet="FdfsStorage">
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="Port" ColumnName="Port" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FdfsTracker">
+      <EntityTypeMapping TypeName="PMS2016Model.FdfsTracker">
+        <MappingFragment StoreEntitySet="FdfsTracker">
+          <ScalarProperty Name="StorePathIndex" ColumnName="StorePathIndex" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="Port" ColumnName="Port" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="TID" ColumnName="TID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="R_SMSContent_FdfsContent" TypeName="PMS2016Model.R_SMSContent_FdfsContent" StoreEntitySet="R_SMSContent_FdfsContent">
+      <EndProperty Name="S_SMSContent">
+        <ScalarProperty Name="ID" ColumnName="CID" />
+      </EndProperty>
+      <EndProperty Name="FdfsContent">
+        <ScalarProperty Name="ID" ColumnName="FCID" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -10,7 +10,6 @@ D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\Qua
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\log4net.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\Memcached.Client.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\Newtonsoft.Json.dll
-D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\ServiceStack.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\Microsoft.Practices.Unity.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\Microsoft.Practices.Unity.Configuration.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\FastDFS.Client.dll
@@ -42,3 +41,8 @@ D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\zh-
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\obj\Release\QuartzJobFactory.csprojResolveAssemblyReference.cache
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\obj\Release\QuartzJobFactory.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\obj\Release\QuartzJobFactory.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\ICSharpCode.SharpZipLib.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\ServiceStack.Redis.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\ServiceStack.Interfaces.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\ServiceStack.Interfaces.xml
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzJobFactory\bin\Release\ServiceStack.Redis.xml

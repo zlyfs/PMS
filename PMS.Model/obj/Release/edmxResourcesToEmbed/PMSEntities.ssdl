@@ -15,12 +15,93 @@
     <Property Name="AreaName" Type="nvarchar" MaxLength="32" />
     <Property Name="ActionMethodName" Type="nvarchar" MaxLength="32" />
     <Property Name="ControllerName" Type="nvarchar" MaxLength="32" />
+    <Property Name="JsFunctionName" Type="varchar" MaxLength="32" />
     <Property Name="Sort" Type="int" Nullable="false" />
     <Property Name="ActionTypeEnum" Type="smallint" Nullable="false" />
     <Property Name="MenuIcon" Type="varchar" MaxLength="512" />
     <Property Name="IconWidth" Type="int" Nullable="false" />
     <Property Name="IconHeight" Type="int" Nullable="false" />
+    <Property Name="IconCls" Type="nvarchar" MaxLength="32" />
+    <Property Name="IconClassName" Type="varchar" MaxLength="32" />
     <Property Name="isShow" Type="bit" Nullable="false" />
+    <Property Name="MethodTypeEnum" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FdfsContent">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TID" Type="int" Nullable="false" />
+    <Property Name="SID" Type="int" Nullable="false" />
+    <Property Name="FileName" Type="varchar" MaxLength="32" Nullable="false" />
+    <Property Name="ScrollName" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="Ext" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FdfsStorage">
+    <Key>
+      <PropertyRef Name="SID" />
+    </Key>
+    <Property Name="SID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="URL" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Port" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="GroupName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FdfsTracker">
+    <Key>
+      <PropertyRef Name="TID" />
+    </Key>
+    <Property Name="TID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="URL" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Port" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="GroupName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="StorePathIndex" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="J_JobInfo">
+    <Key>
+      <PropertyRef Name="JID" />
+    </Key>
+    <Property Name="JID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JobName" Type="nvarchar" MaxLength="50" />
+    <Property Name="JobGroup" Type="nvarchar" MaxLength="100" />
+    <Property Name="JobClassName" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="JobState" Type="int" Nullable="false" />
+    <Property Name="CronStr" Type="varchar" MaxLength="40" />
+    <Property Name="StartRunTime" Type="datetime" Nullable="false" />
+    <Property Name="EndRunTime" Type="datetime" Nullable="false" />
+    <Property Name="NextRunTime" Type="datetime" Nullable="false" />
+    <Property Name="Token" Type="varchar" MaxLength="40" />
+    <Property Name="AppID" Type="varchar" MaxLength="40" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="InfoState" Type="int" Nullable="false" />
+    <Property Name="CreateUser" Type="nvarchar" MaxLength="30" />
+    <Property Name="isDel" Type="bit" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="J_JobTemplate">
+    <Key>
+      <PropertyRef Name="JTID" />
+    </Key>
+    <Property Name="JTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JTName" Type="nvarchar" MaxLength="20" />
+    <Property Name="JobClassName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="JobGroup" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CronStr" Type="varchar" MaxLength="100" />
+    <Property Name="JobType" Type="int" Nullable="false" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+    <Property Name="isDel" Type="bit" Nullable="false" />
+    <Property Name="isBtn" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="N_News">
+    <Key>
+      <PropertyRef Name="SNID" />
+    </Key>
+    <Property Name="SNID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NewsType" Type="int" Nullable="false" />
+    <Property Name="NewsContent" Type="nvarchar(max)" />
+    <Property Name="SubDateTime" Type="datetime" Nullable="false" />
+    <Property Name="isDel" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="P_DepartmentInfo">
     <Key>
@@ -57,6 +138,29 @@
     <Property Name="isVIP" Type="bit" Nullable="false" />
     <Property Name="isDel" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="QRTZ_TRIGGERS">
+    <Key>
+      <PropertyRef Name="SCHED_NAME" />
+      <PropertyRef Name="TRIGGER_NAME" />
+      <PropertyRef Name="TRIGGER_GROUP" />
+    </Key>
+    <Property Name="SCHED_NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TRIGGER_NAME" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="TRIGGER_GROUP" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="JOB_NAME" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="JOB_GROUP" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="250" />
+    <Property Name="NEXT_FIRE_TIME" Type="bigint" />
+    <Property Name="PREV_FIRE_TIME" Type="bigint" />
+    <Property Name="PRIORITY" Type="int" />
+    <Property Name="TRIGGER_STATE" Type="nvarchar" MaxLength="16" Nullable="false" />
+    <Property Name="TRIGGER_TYPE" Type="nvarchar" MaxLength="8" Nullable="false" />
+    <Property Name="START_TIME" Type="bigint" Nullable="false" />
+    <Property Name="END_TIME" Type="bigint" />
+    <Property Name="CALENDAR_NAME" Type="nvarchar" MaxLength="200" />
+    <Property Name="MISFIRE_INSTR" Type="int" />
+    <Property Name="JOB_DATA" Type="image" />
+  </EntityType>
   <EntityType Name="R_Department_Mission">
     <Key>
       <PropertyRef Name="ID" />
@@ -66,6 +170,7 @@
     <Property Name="MissionID" Type="int" Nullable="false" />
     <Property Name="SubTime" Type="date" Nullable="false" />
     <Property Name="isPass" Type="bit" Nullable="false" />
+    <Property Name="isMMS" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="R_Group_Mission">
     <Key>
@@ -75,6 +180,23 @@
     <Property Name="MissionID" Type="int" Nullable="false" />
     <Property Name="GroupID" Type="int" Nullable="false" />
     <Property Name="isPass" Type="bit" Nullable="false" />
+    <Property Name="isMMS" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="R_JobInfo_JobTemplate">
+    <Key>
+      <PropertyRef Name="JID" />
+      <PropertyRef Name="JTID" />
+    </Key>
+    <Property Name="JID" Type="int" Nullable="false" />
+    <Property Name="JTID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="R_JobTemplate_RoleInfo">
+    <Key>
+      <PropertyRef Name="JTID" />
+      <PropertyRef Name="RID" />
+    </Key>
+    <Property Name="JTID" Type="int" Nullable="false" />
+    <Property Name="RID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="R_Person_Department">
     <Key>
@@ -100,6 +222,14 @@
     <Property Name="RoleInfoID" Type="int" Nullable="false" />
     <Property Name="ActionInfoID" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="R_SMSContent_FdfsContent">
+    <Key>
+      <PropertyRef Name="CID" />
+      <PropertyRef Name="FCID" />
+    </Key>
+    <Property Name="CID" Type="int" Nullable="false" />
+    <Property Name="FCID" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="R_UserInfo_ActionInfo">
     <Key>
       <PropertyRef Name="ID" />
@@ -108,12 +238,13 @@
     <Property Name="UserInfoID" Type="int" Nullable="false" />
     <Property Name="ActionInfoID" Type="int" Nullable="false" />
     <Property Name="isPass" Type="bit" Nullable="false" />
+    <Property Name="isDefault" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="R_UserInfo_DepartmentInfo">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UID" Type="int" Nullable="false" />
     <Property Name="DID" Type="int" Nullable="false" />
     <Property Name="isPass" Type="bit" Nullable="false" />
@@ -127,11 +258,36 @@
     <Property Name="GID" Type="int" Nullable="false" />
     <Property Name="isPass" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="R_UserInfo_JobInfo">
+    <Key>
+      <PropertyRef Name="JID" />
+      <PropertyRef Name="UID" />
+    </Key>
+    <Property Name="JID" Type="int" Nullable="false" />
+    <Property Name="UID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="R_UserInfo_JobTemplate">
+    <Key>
+      <PropertyRef Name="UID" />
+      <PropertyRef Name="JTID" />
+    </Key>
+    <Property Name="UID" Type="int" Nullable="false" />
+    <Property Name="JTID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="R_UserInfo_News">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UID" Type="int" Nullable="false" />
+    <Property Name="NID" Type="int" Nullable="false" />
+    <Property Name="isCheck" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="R_UserInfo_PersonInfo">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UID" Type="int" Nullable="false" />
     <Property Name="PID" Type="int" Nullable="false" />
     <Property Name="isPass" Type="bit" Nullable="false" />
@@ -179,6 +335,8 @@
     <Property Name="BlackList" Type="nvarchar(max)" />
     <Property Name="ResultCode" Type="int" Nullable="false" />
     <Property Name="smsCount" Type="int" Nullable="false" />
+    <Property Name="isMMS" Type="bit" Nullable="false" />
+    <Property Name="MSTitle" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="S_SMSMission">
     <Key>
@@ -202,7 +360,7 @@
     <Property Name="UID" Type="int" />
     <Property Name="MsgContent" Type="nvarchar(max)" />
     <Property Name="isDel" Type="bit" Nullable="false" />
-    <Property Name="SubTime" Type="date" Nullable="false" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
     <Property Name="Sort" Type="int" Nullable="false" />
     <Property Name="MsgName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Remark" Type="nvarchar" MaxLength="100" />
@@ -227,6 +385,14 @@
     <Property Name="StatusCode" Type="int" Nullable="false" />
     <Property Name="DescContent" Type="nvarchar" MaxLength="5" />
   </EntityType>
+  <EntityType Name="S_SMSType">
+    <Key>
+      <PropertyRef Name="TID" />
+    </Key>
+    <Property Name="TID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="isDel" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="UserInfo">
     <Key>
       <PropertyRef Name="ID" />
@@ -240,6 +406,92 @@
     <Property Name="Remark" Type="nvarchar" MaxLength="256" />
     <Property Name="Sort" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="WF_Query_Instance">
+    <Key>
+      <PropertyRef Name="ApplicationId" />
+    </Key>
+    <Property Name="ID" Type="int" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="StartedBy" Type="int" Nullable="false" />
+    <Property Name="Level" Type="smallint" Nullable="false" />
+    <Property Name="SubForm" Type="nvarchar(max)" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Result" Type="int" Nullable="false" />
+    <Property Name="WF_TempID" Type="int" />
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“SMS_NMEFC.dbo.WF_Query_StepInfo”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="WF_Query_StepInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="isProcessed" />
+      <PropertyRef Name="isStartStep" />
+      <PropertyRef Name="isEndStep" />
+      <PropertyRef Name="StepResult" />
+      <PropertyRef Name="isDel" />
+      <PropertyRef Name="SubTime" />
+      <PropertyRef Name="ProcessTime" />
+      <PropertyRef Name="ProcessBy" />
+      <PropertyRef Name="ParentStepId" />
+      <PropertyRef Name="ChildStepId" />
+      <PropertyRef Name="WF_Query" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="isProcessed" Type="bit" Nullable="false" />
+    <Property Name="isStartStep" Type="bit" Nullable="false" />
+    <Property Name="isEndStep" Type="bit" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="32" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+    <Property Name="StepResult" Type="smallint" Nullable="false" />
+    <Property Name="isDel" Type="bit" Nullable="false" />
+    <Property Name="SubTime" Type="datetime" Nullable="false" />
+    <Property Name="ProcessTime" Type="datetime" Nullable="false" />
+    <Property Name="Remark" Type="nvarchar(max)" />
+    <Property Name="ProcessBy" Type="int" Nullable="false" />
+    <Property Name="ParentStepId" Type="int" Nullable="false" />
+    <Property Name="ChildStepId" Type="int" Nullable="false" />
+    <Property Name="WF_Query" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_FdfsContent_FdfsStorage">
+    <End Role="FdfsStorage" Type="Self.FdfsStorage" Multiplicity="1" />
+    <End Role="FdfsContent" Type="Self.FdfsContent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FdfsStorage">
+        <PropertyRef Name="SID" />
+      </Principal>
+      <Dependent Role="FdfsContent">
+        <PropertyRef Name="SID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FdfsContent_FdfsTracker">
+    <End Role="FdfsTracker" Type="Self.FdfsTracker" Multiplicity="1" />
+    <End Role="FdfsContent" Type="Self.FdfsContent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FdfsTracker">
+        <PropertyRef Name="TID" />
+      </Principal>
+      <Dependent Role="FdfsContent">
+        <PropertyRef Name="TID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_N_News_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="N_News" Type="Self.N_News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="N_News">
+        <PropertyRef Name="UID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_R_Department_Mission_P_DepartmentInfo">
     <End Role="P_DepartmentInfo" Type="Self.P_DepartmentInfo" Multiplicity="1" />
     <End Role="R_Department_Mission" Type="Self.R_Department_Mission" Multiplicity="*" />
@@ -288,8 +540,66 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_R_JobInfo_JobTemplate_J_JobInfo">
+    <End Role="J_JobInfo" Type="Self.J_JobInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="R_JobInfo_JobTemplate" Type="Self.R_JobInfo_JobTemplate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="J_JobInfo">
+        <PropertyRef Name="JID" />
+      </Principal>
+      <Dependent Role="R_JobInfo_JobTemplate">
+        <PropertyRef Name="JID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_R_JobInfo_JobTemplate_J_JobTemplate">
+    <End Role="J_JobTemplate" Type="Self.J_JobTemplate" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="R_JobInfo_JobTemplate" Type="Self.R_JobInfo_JobTemplate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="J_JobTemplate">
+        <PropertyRef Name="JTID" />
+      </Principal>
+      <Dependent Role="R_JobInfo_JobTemplate">
+        <PropertyRef Name="JTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_R_JobTemplate_RoleInfo_J_JobTemplate">
+    <End Role="J_JobTemplate" Type="Self.J_JobTemplate" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="R_JobTemplate_RoleInfo" Type="Self.R_JobTemplate_RoleInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="J_JobTemplate">
+        <PropertyRef Name="JTID" />
+      </Principal>
+      <Dependent Role="R_JobTemplate_RoleInfo">
+        <PropertyRef Name="JTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_R_JobTemplate_RoleInfo_RoleInfo">
+    <End Role="RoleInfo" Type="Self.RoleInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="R_JobTemplate_RoleInfo" Type="Self.R_JobTemplate_RoleInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoleInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="R_JobTemplate_RoleInfo">
+        <PropertyRef Name="RID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_R_Person_Department_P_DepartmentInfo">
-    <End Role="P_DepartmentInfo" Type="Self.P_DepartmentInfo" Multiplicity="1" />
+    <End Role="P_DepartmentInfo" Type="Self.P_DepartmentInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="R_Person_Department" Type="Self.R_Person_Department" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="P_DepartmentInfo">
@@ -301,7 +611,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_R_Person_Department_P_PersonInfo">
-    <End Role="P_PersonInfo" Type="Self.P_PersonInfo" Multiplicity="1" />
+    <End Role="P_PersonInfo" Type="Self.P_PersonInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="R_Person_Department" Type="Self.R_Person_Department" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="P_PersonInfo">
@@ -313,7 +625,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_R_Person_Group_P_Group">
-    <End Role="P_Group" Type="Self.P_Group" Multiplicity="1" />
+    <End Role="P_Group" Type="Self.P_Group" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="R_Person_Group" Type="Self.R_Person_Group" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="P_Group">
@@ -325,7 +639,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_R_Person_Group_P_PersonInfo">
-    <End Role="P_PersonInfo" Type="Self.P_PersonInfo" Multiplicity="1" />
+    <End Role="P_PersonInfo" Type="Self.P_PersonInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="R_Person_Group" Type="Self.R_Person_Group" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="P_PersonInfo">
@@ -360,6 +676,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_R_SMSContent_FdfsContent_FdfsContent">
+    <End Role="FdfsContent" Type="Self.FdfsContent" Multiplicity="1" />
+    <End Role="R_SMSContent_FdfsContent" Type="Self.R_SMSContent_FdfsContent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FdfsContent">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="R_SMSContent_FdfsContent">
+        <PropertyRef Name="FCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_R_SMSContent_FdfsContent_S_SMSContent">
+    <End Role="S_SMSContent" Type="Self.S_SMSContent" Multiplicity="1" />
+    <End Role="R_SMSContent_FdfsContent" Type="Self.R_SMSContent_FdfsContent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="S_SMSContent">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="R_SMSContent_FdfsContent">
+        <PropertyRef Name="CID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_R_UserInfo_ActionInfo_ActionInfo">
     <End Role="ActionInfo" Type="Self.ActionInfo" Multiplicity="1" />
     <End Role="R_UserInfo_ActionInfo" Type="Self.R_UserInfo_ActionInfo" Multiplicity="*" />
@@ -373,7 +713,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_R_UserInfo_ActionInfo_UserInfo">
-    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="R_UserInfo_ActionInfo" Type="Self.R_UserInfo_ActionInfo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserInfo">
@@ -397,7 +739,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_R_UserInfo_DepartmentInfo_UserInfo">
-    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="R_UserInfo_DepartmentInfo" Type="Self.R_UserInfo_DepartmentInfo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserInfo">
@@ -421,13 +765,97 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_R_UserInfo_Group_UserInfo">
-    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="R_UserInfo_Group" Type="Self.R_UserInfo_Group" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserInfo">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="R_UserInfo_Group">
+        <PropertyRef Name="UID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_R_UserInfo_JobInfo_J_JobInfo">
+    <End Role="J_JobInfo" Type="Self.J_JobInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="R_UserInfo_JobInfo" Type="Self.R_UserInfo_JobInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="J_JobInfo">
+        <PropertyRef Name="JID" />
+      </Principal>
+      <Dependent Role="R_UserInfo_JobInfo">
+        <PropertyRef Name="JID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_R_UserInfo_JobInfo_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="R_UserInfo_JobInfo" Type="Self.R_UserInfo_JobInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="R_UserInfo_JobInfo">
+        <PropertyRef Name="UID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_R_UserInfo_JobTemplate_J_JobTemplate">
+    <End Role="J_JobTemplate" Type="Self.J_JobTemplate" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="R_UserInfo_JobTemplate" Type="Self.R_UserInfo_JobTemplate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="J_JobTemplate">
+        <PropertyRef Name="JTID" />
+      </Principal>
+      <Dependent Role="R_UserInfo_JobTemplate">
+        <PropertyRef Name="JTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_R_UserInfo_JobTemplate_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="R_UserInfo_JobTemplate" Type="Self.R_UserInfo_JobTemplate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="R_UserInfo_JobTemplate">
+        <PropertyRef Name="UID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_R_UserInfo_News_N_News">
+    <End Role="N_News" Type="Self.N_News" Multiplicity="1" />
+    <End Role="R_UserInfo_News" Type="Self.R_UserInfo_News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="N_News">
+        <PropertyRef Name="SNID" />
+      </Principal>
+      <Dependent Role="R_UserInfo_News">
+        <PropertyRef Name="NID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_R_UserInfo_News_UserInfo">
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="R_UserInfo_News" Type="Self.R_UserInfo_News" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="R_UserInfo_News">
         <PropertyRef Name="UID" />
       </Dependent>
     </ReferentialConstraint>
@@ -445,7 +873,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_R_UserInfo_PersonInfo_UserInfo">
-    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="R_UserInfo_PersonInfo" Type="Self.R_UserInfo_PersonInfo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserInfo">
@@ -469,7 +899,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_R_UserInfo_RoleInfo_UserInfo">
-    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="R_UserInfo_RoleInfo" Type="Self.R_UserInfo_RoleInfo" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserInfo">
@@ -493,7 +925,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_R_UserInfo_SMSMission_UserInfo">
-    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="R_UserInfo_SMSMission" Type="Self.R_UserInfo_SMSMission" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserInfo">
@@ -541,7 +975,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_S_SMSMsgContent_UserInfo">
-    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+    <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="S_SMSMsgContent" Type="Self.S_SMSMsgContent" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserInfo">
@@ -602,17 +1038,30 @@
   </Association>
   <EntityContainer Name="PMS2016ModelStoreContainer">
     <EntitySet Name="ActionInfo" EntityType="Self.ActionInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FdfsContent" EntityType="Self.FdfsContent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FdfsStorage" EntityType="Self.FdfsStorage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FdfsTracker" EntityType="Self.FdfsTracker" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="J_JobInfo" EntityType="Self.J_JobInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="J_JobTemplate" EntityType="Self.J_JobTemplate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="N_News" EntityType="Self.N_News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="P_DepartmentInfo" EntityType="Self.P_DepartmentInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="P_Group" EntityType="Self.P_Group" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="P_PersonInfo" EntityType="Self.P_PersonInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QRTZ_TRIGGERS" EntityType="Self.QRTZ_TRIGGERS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_Department_Mission" EntityType="Self.R_Department_Mission" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_Group_Mission" EntityType="Self.R_Group_Mission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="R_JobInfo_JobTemplate" EntityType="Self.R_JobInfo_JobTemplate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="R_JobTemplate_RoleInfo" EntityType="Self.R_JobTemplate_RoleInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_Person_Department" EntityType="Self.R_Person_Department" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_Person_Group" EntityType="Self.R_Person_Group" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_RoleInfo_ActionInfo" EntityType="Self.R_RoleInfo_ActionInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="R_SMSContent_FdfsContent" EntityType="Self.R_SMSContent_FdfsContent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_UserInfo_ActionInfo" EntityType="Self.R_UserInfo_ActionInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_UserInfo_DepartmentInfo" EntityType="Self.R_UserInfo_DepartmentInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_UserInfo_Group" EntityType="Self.R_UserInfo_Group" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="R_UserInfo_JobInfo" EntityType="Self.R_UserInfo_JobInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="R_UserInfo_JobTemplate" EntityType="Self.R_UserInfo_JobTemplate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="R_UserInfo_News" EntityType="Self.R_UserInfo_News" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_UserInfo_PersonInfo" EntityType="Self.R_UserInfo_PersonInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_UserInfo_RoleInfo" EntityType="Self.R_UserInfo_RoleInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="R_UserInfo_SMSMission" EntityType="Self.R_UserInfo_SMSMission" Schema="dbo" store:Type="Tables" />
@@ -622,7 +1071,41 @@
     <EntitySet Name="S_SMSMsgContent" EntityType="Self.S_SMSMsgContent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="S_SMSRecord_Current" EntityType="Self.S_SMSRecord_Current" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="S_SMSRecord_History" EntityType="Self.S_SMSRecord_History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="S_SMSType" EntityType="Self.S_SMSType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WF_Query_Instance" EntityType="Self.WF_Query_Instance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WF_Query_StepInfo" EntityType="Self.WF_Query_StepInfo" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [WF_Query_StepInfo].[ID] AS [ID], 
+    [WF_Query_StepInfo].[Name] AS [Name], 
+    [WF_Query_StepInfo].[isProcessed] AS [isProcessed], 
+    [WF_Query_StepInfo].[isStartStep] AS [isStartStep], 
+    [WF_Query_StepInfo].[isEndStep] AS [isEndStep], 
+    [WF_Query_StepInfo].[Title] AS [Title], 
+    [WF_Query_StepInfo].[Comment] AS [Comment], 
+    [WF_Query_StepInfo].[StepResult] AS [StepResult], 
+    [WF_Query_StepInfo].[isDel] AS [isDel], 
+    [WF_Query_StepInfo].[SubTime] AS [SubTime], 
+    [WF_Query_StepInfo].[ProcessTime] AS [ProcessTime], 
+    [WF_Query_StepInfo].[Remark] AS [Remark], 
+    [WF_Query_StepInfo].[ProcessBy] AS [ProcessBy], 
+    [WF_Query_StepInfo].[ParentStepId] AS [ParentStepId], 
+    [WF_Query_StepInfo].[ChildStepId] AS [ChildStepId], 
+    [WF_Query_StepInfo].[WF_Query] AS [WF_Query]
+    FROM [dbo].[WF_Query_StepInfo] AS [WF_Query_StepInfo]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_FdfsContent_FdfsStorage" Association="Self.FK_FdfsContent_FdfsStorage">
+      <End Role="FdfsStorage" EntitySet="FdfsStorage" />
+      <End Role="FdfsContent" EntitySet="FdfsContent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FdfsContent_FdfsTracker" Association="Self.FK_FdfsContent_FdfsTracker">
+      <End Role="FdfsTracker" EntitySet="FdfsTracker" />
+      <End Role="FdfsContent" EntitySet="FdfsContent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_N_News_UserInfo" Association="Self.FK_N_News_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="N_News" EntitySet="N_News" />
+    </AssociationSet>
     <AssociationSet Name="FK_R_Department_Mission_P_DepartmentInfo" Association="Self.FK_R_Department_Mission_P_DepartmentInfo">
       <End Role="P_DepartmentInfo" EntitySet="P_DepartmentInfo" />
       <End Role="R_Department_Mission" EntitySet="R_Department_Mission" />
@@ -638,6 +1121,22 @@
     <AssociationSet Name="FK_R_Group_Mission_S_SMSMission" Association="Self.FK_R_Group_Mission_S_SMSMission">
       <End Role="S_SMSMission" EntitySet="S_SMSMission" />
       <End Role="R_Group_Mission" EntitySet="R_Group_Mission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_JobInfo_JobTemplate_J_JobInfo" Association="Self.FK_R_JobInfo_JobTemplate_J_JobInfo">
+      <End Role="J_JobInfo" EntitySet="J_JobInfo" />
+      <End Role="R_JobInfo_JobTemplate" EntitySet="R_JobInfo_JobTemplate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_JobInfo_JobTemplate_J_JobTemplate" Association="Self.FK_R_JobInfo_JobTemplate_J_JobTemplate">
+      <End Role="J_JobTemplate" EntitySet="J_JobTemplate" />
+      <End Role="R_JobInfo_JobTemplate" EntitySet="R_JobInfo_JobTemplate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_JobTemplate_RoleInfo_J_JobTemplate" Association="Self.FK_R_JobTemplate_RoleInfo_J_JobTemplate">
+      <End Role="J_JobTemplate" EntitySet="J_JobTemplate" />
+      <End Role="R_JobTemplate_RoleInfo" EntitySet="R_JobTemplate_RoleInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_JobTemplate_RoleInfo_RoleInfo" Association="Self.FK_R_JobTemplate_RoleInfo_RoleInfo">
+      <End Role="RoleInfo" EntitySet="RoleInfo" />
+      <End Role="R_JobTemplate_RoleInfo" EntitySet="R_JobTemplate_RoleInfo" />
     </AssociationSet>
     <AssociationSet Name="FK_R_Person_Department_P_DepartmentInfo" Association="Self.FK_R_Person_Department_P_DepartmentInfo">
       <End Role="P_DepartmentInfo" EntitySet="P_DepartmentInfo" />
@@ -663,6 +1162,14 @@
       <End Role="RoleInfo" EntitySet="RoleInfo" />
       <End Role="R_RoleInfo_ActionInfo" EntitySet="R_RoleInfo_ActionInfo" />
     </AssociationSet>
+    <AssociationSet Name="FK_R_SMSContent_FdfsContent_FdfsContent" Association="Self.FK_R_SMSContent_FdfsContent_FdfsContent">
+      <End Role="FdfsContent" EntitySet="FdfsContent" />
+      <End Role="R_SMSContent_FdfsContent" EntitySet="R_SMSContent_FdfsContent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_SMSContent_FdfsContent_S_SMSContent" Association="Self.FK_R_SMSContent_FdfsContent_S_SMSContent">
+      <End Role="S_SMSContent" EntitySet="S_SMSContent" />
+      <End Role="R_SMSContent_FdfsContent" EntitySet="R_SMSContent_FdfsContent" />
+    </AssociationSet>
     <AssociationSet Name="FK_R_UserInfo_ActionInfo_ActionInfo" Association="Self.FK_R_UserInfo_ActionInfo_ActionInfo">
       <End Role="ActionInfo" EntitySet="ActionInfo" />
       <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
@@ -686,6 +1193,30 @@
     <AssociationSet Name="FK_R_UserInfo_Group_UserInfo" Association="Self.FK_R_UserInfo_Group_UserInfo">
       <End Role="UserInfo" EntitySet="UserInfo" />
       <End Role="R_UserInfo_Group" EntitySet="R_UserInfo_Group" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_UserInfo_JobInfo_J_JobInfo" Association="Self.FK_R_UserInfo_JobInfo_J_JobInfo">
+      <End Role="J_JobInfo" EntitySet="J_JobInfo" />
+      <End Role="R_UserInfo_JobInfo" EntitySet="R_UserInfo_JobInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_UserInfo_JobInfo_UserInfo" Association="Self.FK_R_UserInfo_JobInfo_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="R_UserInfo_JobInfo" EntitySet="R_UserInfo_JobInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_UserInfo_JobTemplate_J_JobTemplate" Association="Self.FK_R_UserInfo_JobTemplate_J_JobTemplate">
+      <End Role="J_JobTemplate" EntitySet="J_JobTemplate" />
+      <End Role="R_UserInfo_JobTemplate" EntitySet="R_UserInfo_JobTemplate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_UserInfo_JobTemplate_UserInfo" Association="Self.FK_R_UserInfo_JobTemplate_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="R_UserInfo_JobTemplate" EntitySet="R_UserInfo_JobTemplate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_UserInfo_News_N_News" Association="Self.FK_R_UserInfo_News_N_News">
+      <End Role="N_News" EntitySet="N_News" />
+      <End Role="R_UserInfo_News" EntitySet="R_UserInfo_News" />
+    </AssociationSet>
+    <AssociationSet Name="FK_R_UserInfo_News_UserInfo" Association="Self.FK_R_UserInfo_News_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="R_UserInfo_News" EntitySet="R_UserInfo_News" />
     </AssociationSet>
     <AssociationSet Name="FK_R_UserInfo_PersonInfo_P_PersonInfo" Association="Self.FK_R_UserInfo_PersonInfo_P_PersonInfo">
       <End Role="P_PersonInfo" EntitySet="P_PersonInfo" />

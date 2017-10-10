@@ -29,7 +29,12 @@ namespace PMS.Model.ApiMessage
         /// <summary>
         /// 短信群组名称数组（使用，拼接为一个string）
         /// </summary>
-        public string GroupNames { get; set; } 
+        public string GroupNames { get; set; }
+
+        /// <summary>
+        /// 部门名称数组（使用，拼接为一个string）
+        /// </summary>
+        public string DepartmentNames { get; set; }
 
         /// <summary>
         /// 短信内容

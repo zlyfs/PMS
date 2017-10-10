@@ -21,6 +21,15 @@ namespace HttpHelper
         /// <summary>
         /// Cookie字符串
         /// </summary>
-        public string CookieString { get; set; }
+        public string CookieString {
+            get
+            {
+                return this.CookieCollection.ToString();
+            }
+            set
+            {
+
+            }
+        }
     }
 }

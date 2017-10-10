@@ -281,6 +281,8 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="common.config" />
+    <None Include="Properties\PublishProfiles\WebAPISMS.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -292,7 +294,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -324,9 +328,25 @@
       <Project>{648b0371-b409-44cf-af78-e07e617d8828}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DelegateSMS\DelegateSMS.csproj">
+      <Project>{FEEDB0CF-1934-4F23-AABD-E69F0500642B}</Project>
+      <Name>DelegateSMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fdfs.DAL\Fdfs.DAL.csproj">
+      <Project>{b7bece01-40b2-445e-bc7d-13ed34502693}</Project>
+      <Name>Fdfs.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fdfs.IDAL\Fdfs.IDAL.csproj">
+      <Project>{8b08411e-6606-460e-86d7-be727c53bddc}</Project>
+      <Name>Fdfs.IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HttpHelper\HttpHelper.csproj">
       <Project>{3b3d4793-0bb6-486f-bca7-df9d2efd2e6a}</Project>
       <Name>HttpHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ISMS\ISMS.csproj">
+      <Project>{ea8b8c2f-3235-41dc-aba4-17cfdf0575c7}</Project>
+      <Name>ISMS</Name>
     </ProjectReference>
     <ProjectReference Include="..\PMS.BLL\PMS.BLL.csproj">
       <Project>{e64c6b70-35bd-422c-9eef-a0a2e4f4ddfb}</Project>
@@ -336,9 +356,17 @@
       <Project>{19c3c8db-438a-47dc-b56c-5dcc7d69e318}</Project>
       <Name>PMS.IBLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PMS.IModel\PMS.IModel.csproj">
+      <Project>{3ba6e7d9-3dfa-4576-a851-6e4c6ad1c686}</Project>
+      <Name>PMS.IModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PMS.Model\PMS.Model.csproj">
       <Project>{db0b872a-4375-4bcb-ad18-f0ebcb0bdae8}</Project>
       <Name>PMS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SMSSession\SMSFactory.csproj">
+      <Project>{ace327d0-a08b-431e-a422-abaa4ba73ac7}</Project>
+      <Name>SMSFactory</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

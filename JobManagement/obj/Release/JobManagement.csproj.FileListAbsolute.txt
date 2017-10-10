@@ -14,3 +14,4 @@ D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\JobManagement\bin\Release\zh-Han
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\JobManagement\bin\Release\zh-Hans\System.Web.Mvc.resources.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\JobManagement\obj\Release\JobManagement.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\JobManagement\obj\Release\JobManagement.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\JobManagement\obj\Release\JobManagement.csprojResolveAssemblyReference.cache

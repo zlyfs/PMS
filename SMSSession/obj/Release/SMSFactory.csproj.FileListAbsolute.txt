@@ -69,7 +69,6 @@ D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\QuartzPro
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\log4net.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\Memcached.Client.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\Newtonsoft.Json.dll
-D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\ServiceStack.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\Quartz.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\Microsoft.Practices.Unity.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\Microsoft.Practices.Unity.Configuration.dll
@@ -117,3 +116,10 @@ D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\zh-Hans\S
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\obj\Release\SMSFactory.csprojResolveAssemblyReference.cache
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\obj\Release\SMSFactory.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\obj\Release\SMSFactory.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\App.config
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\log4net.config
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\ICSharpCode.SharpZipLib.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\ServiceStack.Redis.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\ServiceStack.Interfaces.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\ServiceStack.Interfaces.xml
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\SMSSession\bin\Release\ServiceStack.Redis.xml

@@ -16,7 +16,6 @@ D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\Common.L
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\log4net.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\Memcached.Client.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\Newtonsoft.Json.dll
-D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\ServiceStack.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\Microsoft.Practices.Unity.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\Microsoft.Practices.Unity.Configuration.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\ServiceStack.Interfaces.dll
@@ -46,3 +45,8 @@ D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\zh-Hans\
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\obj\Release\QuartzProxy.csprojResolveAssemblyReference.cache
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\obj\Release\QuartzProxy.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\obj\Release\QuartzProxy.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\ICSharpCode.SharpZipLib.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\ServiceStack.Redis.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\ServiceStack.Interfaces.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\ServiceStack.Interfaces.xml
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\QuartzProxy\bin\Release\ServiceStack.Redis.xml

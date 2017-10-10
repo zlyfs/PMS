@@ -89,3 +89,13 @@ D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\zh-Hans\Syste
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\obj\Release\Common.csprojResolveAssemblyReference.cache
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\obj\Release\Common.dll
 D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\obj\Release\Common.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\ServiceStack.Common.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\ServiceStack.Redis.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\ServiceStack.Text.dll
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\ServiceStack.Common.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\ServiceStack.Common.xml
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\ServiceStack.Interfaces.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\ServiceStack.Interfaces.xml
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\ServiceStack.Redis.xml
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\ServiceStack.Text.pdb
+D:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\Common\bin\Release\ServiceStack.Text.xml

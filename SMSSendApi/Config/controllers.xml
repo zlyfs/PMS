@@ -4,6 +4,8 @@
     <property name="userBLL" ref="userInfoService" />
     <property name="smsMissionBLL" ref="smsmissionService" />
     <property name="groupBLL" ref="groupInfoService" />
+    <property name="departmentBLL" ref="departmentInfoService" />
+    <!--<property name="smsSendBLL" ref="smsSendService" />-->
+    <property name="personBLL" ref="personInfoService" />
   </object>
- 
-</objects>
+ </objects>
