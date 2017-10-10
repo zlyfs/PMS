@@ -111,17 +111,15 @@ namespace SMSSendApi.Controllers.api
 
             var session_id= this.Set2Memcached(userid.ToString());
 
-            
-
             CookieCollection cookies = new CookieCollection();
             cookies.Add(
-                new Cookie()
-                {
-                    Name = cookie_sessionId,
-                    Value = session_id,
-                     Expires=DateTime.Now.AddHours(3),
-                     Domain="nmefc"
-                });
+                        new Cookie()
+                        {
+                            Name = cookie_sessionId,
+                            Value = session_id,
+                            Expires = DateTime.Now.AddHours(3),
+                            Domain = "nmefc"
+                        });
 
             var temp_smsmission= smsMissionBLL.GetListBy(s => s.SMSMissionName == sendModel.SMSMissionNames).FirstOrDefault();
 
@@ -137,7 +135,7 @@ namespace SMSSendApi.Controllers.api
             //2 请求短信发送action url
             HttpResponseParameter responseParameter = httpProvider.Excute(new HttpRequestParameter
             {
-                Url = "http://128.5.10.57:11021/SMS/Send/DoSend/",
+                Url = "128.5.10.57/SMS/Send/DoSend/",
                 IsPost = true,
                 Encoding = Encoding.UTF8,
                 JsonData = Common.SerializerHelper.SerializerToString(sendObj),
@@ -147,7 +145,7 @@ namespace SMSSendApi.Controllers.api
                 }
             });
             var response_content =string.Format("responseParameter|{0}",Common.SerializerHelper.SerializerToString(responseParameter));
-            Common.LogHelper.WriteError(response_content);
+            Common.LogHelper.WriteError(response_content); 
             //3 将返执行发送后的结果转换为SendResponseModel，序列化后返回
             //未完成
             return new SendResponseModel() { };
