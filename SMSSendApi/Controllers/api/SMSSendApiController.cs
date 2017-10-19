@@ -362,7 +362,7 @@ namespace SMSSendApi.Controllers.api
             //2 请求短信发送action url
             HttpResponseParameter responseParameter = httpProvider.Excute(new HttpRequestParameter
             {
-                Url = "http://128.5.10.57:11021/SMS/Send/DoSend/",
+                Url = "128.5.10.57/SMS/Send/DoSend/",
                 IsPost = true,
                 Encoding = Encoding.UTF8,
                 JsonData = Common.SerializerHelper.SerializerToString(sendObj),
