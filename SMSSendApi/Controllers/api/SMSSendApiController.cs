@@ -3,16 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using PMS.Model.ViewModel;
 using HttpHelper;
 using System.Text;
 using Common;
-using PMS.Model.ApiMessage;
 using PMS.IBLL;
 using PMS.Model;
-using PMS.BLL;
 using PMS.Model.SMSModel;
 using ISMS;
 using PMS.Model.EqualCompare;
@@ -75,45 +72,34 @@ namespace SMSSendApi.Controllers.api
             return session_guid;
         }
         /// <summary>
-        /// 无存储发送方法
+        /// 发送方法,通过自写实现
         /// </summary>
         /// <param name="sendModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public SendResponseModel NoRecordSend(SendResultModel sendModel)
+        public SendResponseModel SendPort(SendResultModel sendModel)
         {
             //模拟一个post请求
             SendResponseModel sendResponseModel = new SendResponseModel { ResponseDate = DateTime.Now };
-            //LogHelper.WriteError("测试1");
-            
-            //try
-            //{
-            //    LogHelper.WriteError(personBLL == null ? "perspnBLL为空" : "perspnBLL为" + personBLL.ToString());
-            //    var person = personBLL.GetListBy(p => p.PhoneNum.Equals("13811104406")).FirstOrDefault();
-                
-            //    var name = person.PName;
-            //}
-            //catch (Exception ex)
-            //{
-                
-            //    LogHelper.WriteError(ex.ToString());
-            //    throw;
-            //}
-            
-            
-            #region 各种判断,有权限则继续
+                      
+            #region 各种信息检查判断,包括短信字数；所列任务、群组、部门是否存在；用户账户是否存在
             //1 判断传入的SendResultModel是否包含必须的内容—Q
             //1.1 短信内容为空或字数超过800不执行发送
-            if (sendModel.Content == null && sendModel.Content.Length + 9 >= 800)
+            if (sendModel.Content == null || sendModel.Content.Length + 9 >= 800 || sendModel.Content.Equals(""))
             {
-                sendResponseModel.ResultCode = Convert.ToString(PMS.Model.Enum.ResultCodeEnum_SendAPI.contentError);
+                sendResponseModel.ResultCode = Convert.ToString(Convert.ToInt32(PMS.Model.Enum.ResultCodeEnum_SendAPI.contentError));
                 return sendResponseModel;
 
             }
             //1.2 传入的任务为空或任务不存在
-            else if (!smsMissionBLL.AddValidation(sendModel.SMSMissionNames))
+            if(sendModel.SMSMissionNames==null)
             {
-                sendResponseModel.ResultCode = Convert.ToString(PMS.Model.Enum.ResultCodeEnum_SendAPI.missionError);
+                sendResponseModel.ResultCode = Convert.ToString(Convert.ToInt32(PMS.Model.Enum.ResultCodeEnum_SendAPI.missingMission));
+                return sendResponseModel;
+            }
+            if (!smsMissionBLL.AddValidation(sendModel.SMSMissionNames))
+            {
+                sendResponseModel.ResultCode = Convert.ToString(Convert.ToInt32(PMS.Model.Enum.ResultCodeEnum_SendAPI.missionError));
                 return sendResponseModel;
             }
             //1.3 传入的群组不为空但群组不存在
@@ -124,72 +110,105 @@ namespace SMSSendApi.Controllers.api
                 {
                     if (item == "" && !groupBLL.AddValidation(item))
                     {
-                        sendResponseModel.ResultCode = Convert.ToString(PMS.Model.Enum.ResultCodeEnum_SendAPI.groupError);
+                        sendResponseModel.ResultCode = Convert.ToString(Convert.ToInt32(PMS.Model.Enum.ResultCodeEnum_SendAPI.groupError));
                         return sendResponseModel;
                     }
                 }
             }
-            // 1.4 根据传入的SendResultModel的账号及密码（md5）判断是否拥有权限（先写在这里以后通过过滤器实现）—Q
+            //1.4 传入的部门不为空但群组不存在
+            if (sendModel.DepartmentNames != null)
+            {
+                string[] departmentname = sendModel.DepartmentNames.Split(';');
+                foreach (var item in departmentname)
+                {
+                    if (item == "" && !departmentBLL.AddValidation(item))
+                    {
+                        sendResponseModel.ResultCode = Convert.ToString(Convert.ToInt32(PMS.Model.Enum.ResultCodeEnum_SendAPI.departmentError));
+                        return sendResponseModel;
+                    }
+                }
+            }
+            // 1.5 根据传入的SendResultModel的账号及密码（md5）判断是否拥有权限（先写在这里以后通过过滤器实现）—Q
+            if (sendModel.Account == null || sendModel.Pwd == null)
+            {
+                sendResponseModel.ResultCode = Convert.ToString(Convert.ToInt32(PMS.Model.Enum.ResultCodeEnum_SendAPI.missingAccountOrPwd));
+                return sendResponseModel;
+            }
             UserInfo userInfo = userBLL.GetListBy(u => u.UName == sendModel.Account && u.DelFlag == false).FirstOrDefault();
 
-            if (userInfo == null && userInfo.UPwd != Encryption.MD5Encryption(sendModel.Pwd))
+            if (userInfo == null)
             {
-                sendResponseModel.ResultCode = Convert.ToString(PMS.Model.Enum.ResultCodeEnum_SendAPI.accountError);
+                sendResponseModel.ResultCode = Convert.ToString(Convert.ToInt32(PMS.Model.Enum.ResultCodeEnum_SendAPI.accountError));
+                return sendResponseModel;
+            }
+            if (userInfo.UPwd != Encryption.MD5Encryption(sendModel.Pwd))
+            {
+                sendResponseModel.ResultCode = Convert.ToString(Convert.ToInt32(PMS.Model.Enum.ResultCodeEnum_SendAPI.accountError));
                 return sendResponseModel;
             }
             #endregion
             #region 进行匹配发送
-            //smsMissionBLL.GetPersonByMission()
-            //发送参数准备
+            //2.发送参数准备
             PMS.Model.ViewModel.ViewModel_Message model = new ViewModel_Message();
+            //2.1传递信息内容
             model.Content = sendModel.Content;
+            //2.2查询传递用户ID
             model.UID = userBLL.GetListBy(u => u.UName.Equals(sendModel.Account)).FirstOrDefault().ID;
-            LogHelper.WriteError(model.UID.ToString());
-            var TempG = groupBLL.GetListBy(g => g.GroupName.Equals(sendModel.GroupNames)).ToList();
-            int i = 0;
-            model.GroupIds = new int[TempG.Count];
-            foreach (var temp in TempG)
+            //2.3当有群组信息时，将群组信息放入发送模型
+            if(sendModel.GroupNames!=null)
             {
-                
-                //model.GroupIds[i] = new int();
-                model.GroupIds[i] = temp.GID;
-                i++;
+                string[] groupnames = sendModel.GroupNames.Split(';');
+                int i = 0;
+                model.GroupIds = new int[groupnames.Count()];
+                foreach (var temp in groupnames)
+                {
+                    var TempG = groupBLL.GetListBy(g => g.GroupName.Equals(temp)).FirstOrDefault();
+                    //model.GroupIds[i] = new int();
+                    model.GroupIds[i] = TempG.GID;
+                    i++;
+                }
+
             }
-            var TempD = departmentBLL.GetListBy(d => d.DepartmentName.Equals(sendModel.DepartmentNames)).ToList();
-            i = 0;
-            model.DepartmentIds=new int[TempG.Count];
-            foreach(var temp in TempD)
+            //2.4当有部门信息时，将部门信息放入发送模型
+            if (sendModel.DepartmentNames != null)
             {
-                model.DepartmentIds[i] = temp.DID;
-                i++;
+                string[] departmentnames = sendModel.DepartmentNames.Split(';');
+                int i = 0;
+                model.DepartmentIds=new int[departmentnames.Count()];
+                foreach(var temp in departmentnames)
+                {
+                    var TempD = departmentBLL.GetListBy(d => d.DepartmentName.Equals(sendModel.DepartmentNames)).FirstOrDefault();
+                    model.DepartmentIds[i] = TempD.DID;
+                    i++;
+                }
+
             }
+            //2.5查询传递任务ID
             model.SMSMissionID = smsMissionBLL.GetListBy(m => m.SMSMissionName.Equals(sendModel.SMSMissionNames)).FirstOrDefault().SMID.ToString();
-            //再次检查发送数据
-            //1.2 短信内容为空，不执行发送操作，返回
-            if (model.Content == null)
-            {
-                sendResponseModel.ResultCode = Convert.ToString(PMS.Model.Enum.ResultCodeEnum_SendAPI.contentError);
-                return sendResponseModel;
-            }
-            ////1.3 超出300字，不执行发送操作，返回
-            //if (model.Content.Length + 9 >= 800) { return Content("out of range"); }
+            #endregion
+            //3.建立发送模型
             PMS.Model.CombineModel.SendAndMessage_Model combine_model = new PMS.Model.CombineModel.SendAndMessage_Model();
             combine_model.Model_Message = model;
+            //4.建立反馈模型
             PMS.IModel.ISMSModel_Receive receive = new SMSModel_Receive();
-            //LogHelper.WriteError("准备发送");
-            //进行发送
-            //string recive = DirectSend(combine_model);
-            //return new SendResponseModel()
-            //{
-            //    ResponseDate = DateTime.Now,
-            //    ResultCode=recive
-            //};
+            //5.发送，并回收反馈信息
             var isOk_Send = DoSendNow(combine_model, out receive);
-            #endregion
+            //6.返回结果信息
+            //6.1容错机制
+            string ReceiveCode = null;
+            try
+            {
+                ReceiveCode = (receive as SMSModel_Receive).result;
+            }
+            catch(Exception e)
+            {
+                ReceiveCode = Convert.ToString(Convert.ToInt32(PMS.Model.Enum.ResultCodeEnum_SendAPI.sendError)) ;
+            }
+            //6.2 返回信息
             return new SendResponseModel()
             {
                 ResponseDate = DateTime.Now,
-                ResultCode = isOk_Send.ToString()
+                ResultCode = ReceiveCode
             };
             
 

@@ -3,3 +3,14 @@ D:\VSWorkSpace\nmefc\PMS\IFactoryBLL\bin\Debug\IFactoryBLL.pdb
 D:\VSWorkSpace\nmefc\PMS\IFactoryBLL\obj\Debug\IFactoryBLL.dll
 D:\VSWorkSpace\nmefc\PMS\IFactoryBLL\obj\Debug\IFactoryBLL.pdb
 D:\VSWorkSpace\nmefc\PMS\IFactoryBLL\obj\Debug\IFactoryBLL.csprojResolveAssemblyReference.cache
+G:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\IFactoryBLL\bin\Debug\IFactoryBLL.dll
+G:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\IFactoryBLL\bin\Debug\IFactoryBLL.pdb
+G:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\IFactoryBLL\obj\Debug\IFactoryBLL.csproj.CoreCompileInputs.cache
+G:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\IFactoryBLL\obj\Debug\IFactoryBLL.dll
+G:\work\短彩信DIY开发\开发\nmefc_SMS\PMS\IFactoryBLL\obj\Debug\IFactoryBLL.pdb
+E:\Coding\PMS\PMSCode\IFactoryBLL\bin\Debug\IFactoryBLL.dll
+E:\Coding\PMS\PMSCode\IFactoryBLL\bin\Debug\IFactoryBLL.pdb
+E:\Coding\PMS\PMSCode\IFactoryBLL\obj\Debug\IFactoryBLL.csprojResolveAssemblyReference.cache
+E:\Coding\PMS\PMSCode\IFactoryBLL\obj\Debug\IFactoryBLL.csproj.CoreCompileInputs.cache
+E:\Coding\PMS\PMSCode\IFactoryBLL\obj\Debug\IFactoryBLL.dll
+E:\Coding\PMS\PMSCode\IFactoryBLL\obj\Debug\IFactoryBLL.pdb

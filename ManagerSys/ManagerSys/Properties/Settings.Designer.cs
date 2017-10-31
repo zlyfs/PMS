@@ -26,7 +26,7 @@ namespace ManagerSys.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=ZLYFSNB-PC\\SQLEXPRESS;Initial Catalog=SMS_NMEFC;Integrated Security=T" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-RAS5IH1\\SQLEXPRESS;Initial Catalog=SMS_NMEFC;Integrated Security=T" +
             "rue;MultipleActiveResultSets=True;Application Name=EntityFramework")]
         public string SMS_NMEFCConnectionString {
             get {

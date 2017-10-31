@@ -81,10 +81,6 @@
       <Project>{5e967a6a-2aeb-49a1-9046-9ae917659708}</Project>
       <Name>WFFactory</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WFTest\WFTest.csproj">
-      <Project>{f984650f-3a2c-466d-b504-229141595fb1}</Project>
-      <Name>WFTest</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
