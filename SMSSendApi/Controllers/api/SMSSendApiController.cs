@@ -177,7 +177,7 @@ namespace SMSSendApi.Controllers.api
                 model.DepartmentIds=new int[departmentnames.Count()];
                 foreach(var temp in departmentnames)
                 {
-                    var TempD = departmentBLL.GetListBy(d => d.DepartmentName.Equals(sendModel.DepartmentNames)).FirstOrDefault();
+                    var TempD = departmentBLL.GetListBy(d => d.DepartmentName.Equals(temp)).FirstOrDefault();
                     model.DepartmentIds[i] = TempD.DID;
                     i++;
                 }
